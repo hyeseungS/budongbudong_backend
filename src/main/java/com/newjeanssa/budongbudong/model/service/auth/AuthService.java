@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 import static com.newjeanssa.budongbudong.common.BaseExceptionStatus.*;
 
@@ -118,4 +119,9 @@ public class AuthService {
     public String getUserEmail() {
         return SecurityUtil.getCurrentMemberId();
     }
+
+    /*
+    이메일로 사용자 정보 조회
+     */
+    public Optional<UserDto> getUserByEmail(String email) { return userDao.findByEmail(email); }
 }
