@@ -32,7 +32,8 @@ public class UserController {
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> getUserByEmail(String email) {
+    public ResponseEntity<BaseResponse> getUser() {
+        String email = authService.getUserEmail();
         return ResponseEntity.ok(new BaseResponse(authService.getUserByEmail(email)));
     }
 
