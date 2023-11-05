@@ -24,8 +24,8 @@ import java.util.regex.Pattern;
 import static com.newjeanssa.budongbudong.common.BaseExceptionStatus.*;
 
 @Slf4j
-@RequestMapping("/api/auth")
 @RestController
+@RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -66,7 +66,6 @@ public class AuthController {
     /*
     로그인
      */
-
     @PostMapping("/sign-in")
     @ApiOperation(value = "로그인", notes = "유저 로그인")
     @ApiResponses({

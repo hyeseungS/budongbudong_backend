@@ -8,6 +8,7 @@ import com.newjeanssa.budongbudong.model.dao.UserDao;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.dto.auth.UserSignInRequest;
 import com.newjeanssa.budongbudong.model.dto.auth.UserSignUpRequest;
+import com.newjeanssa.budongbudong.model.dto.auth.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseCookie;
@@ -111,6 +112,27 @@ public class AuthService {
                 .build();
 
         response.setHeader("Set-Cookie", cookie.toString());
+    }
+
+    /*
+    회원정보 수정
+     */
+    @Transactional
+    public void updateUser(String email, UserUpdateRequest userUpdateRequest) {
+        UserDto userDto = UserDto.builder()
+                .email(email)
+                .name(userUpdateRequest.getName())
+                .password(passwordEncoder.encode(userUpdateRequest.getPassword()))
+                .build();
+        userDao.update(userDto);
+    }
+
+    /*
+    회원정보 삭제
+     */
+    @Transactional
+    public void deleteUser(String email) {
+        userDao.delete(email);
     }
 
     /*

@@ -10,5 +10,7 @@ public interface UserDao {
 
     void save(UserDto userDto);
     Optional<UserDto> findByEmail(String email);
+    void update(UserDto userDto);
+    void delete(String email);
 
 }

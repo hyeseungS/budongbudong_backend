@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newjeanssa.budongbudong.model.dao.HouseDao">
+    <resultMap type="HouseDealDto" id="HouseDealResultMap">
+        <id property="no" column="no" />
+        <result property="dealYear" column="dealYear" />
+        <result property="dealMonth" column="dealMonth" />
+        <result property="dealDay" column="dealDay" />
+        <result property="area" column="area" />
+        <result property="floor" column="floor" />
+        <result property="aptCode" column="aptCode" />
+    </resultMap>
+
+    <resultMap type="HouseInfoDto" id="HouseInfoResultMap">
+        <id property="aptCode" column="aptCode" />
+        <result property="roadName" column="roadName" />
+        <result property="dong" column="dong" />
+        <result property="apartmentName" column="apartmentName" />
+        <result property="lng" column="lng" />
+        <result property="lat" column="lat" />
+    </resultMap>
+
+    <resultMap type="HouseDealDto" id="HouseDealInfoResultMap" extends="HouseDealResultMap">
+        <collection property="houseInfoDto" resultMap="HouseInfoResultMap"/>
+    </resultMap>
+
+    <select id="findHouseDeals" parameterType="HouseDealRequest" resultMap="HouseDealInfoResultMap">
+        SELECT t2.aptCode, t2.roadName, t2.dong, t2.apartmentName, t2.lng, t2.lat, t3.dealYear, t3.dealMonth, t3.dealDay, t3.area, t3.floor
+        FROM dongcode t1 JOIN houseinfo t2 ON t1.dongCode = t2.dongCode
+            JOIN housedeal t3 ON t2.aptCode = t3.aptCode
+        WHERE t1.sidoName = #{sidoName} AND t1.gugunName = #{gugunName} AND t1.dongName = #{dongName}
+            AND t3.dealYear = #{dealYear} AND t3.dealMonth = #{dealMonth}
+    </select>
+</mapper>

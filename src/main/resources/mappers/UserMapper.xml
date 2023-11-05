@@ -14,4 +14,14 @@
         FROM user
         WHERE email = #{email}
     </select>
+
+    <update id="update" parameterType="UserDto">
+        UPDATE user
+        SET password = #{password}, name = #{name}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM user
+        WHERE email = #{email}
+    </delete>
 </mapper>
