@@ -30,7 +30,9 @@
 
 ## 2.2. 회원관리 페이지
 ### 회원정보등록
-
+![image](/uploads/6d2232c6425ee477c045d5fe26354e51/image.png)
+![image](/uploads/3f31e63e0323646f97dfec8e764ccb82/image.png)
+![image](/uploads/c44d4e48d01ac007a61b11e11f43d101/image.png)
 
 ### 회원정보검색
 
@@ -42,10 +44,13 @@
 
 ## 2.3. 로그인/로그아웃
 ### 로그인
+![image](/uploads/bb119cf173c30eb019217bd557223a1c/image.png)
+![image](/uploads/8d5f396d4f75b271e6de34e94041889a/image.png)
 
 ### 로그아웃
 
 
 ## 2.4.  실거래가 검색 결과 페이지
-
+![image](/uploads/5abd4ad553413691e714732e91910a88/image.png)
+![image](/uploads/28037c929fcfd27e63115d3a756c03c3/image.png)
 
