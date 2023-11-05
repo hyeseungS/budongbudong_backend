@@ -1,12 +1,12 @@
 package com.newjeanssa.budongbudong.controller;
 
 import com.newjeanssa.budongbudong.common.BaseResponse;
-import com.newjeanssa.budongbudong.model.dto.auth.UserSignUpRequest;
 import com.newjeanssa.budongbudong.model.dto.auth.UserUpdateRequest;
 import com.newjeanssa.budongbudong.model.service.auth.AuthService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,7 @@ import static com.newjeanssa.budongbudong.common.BaseExceptionStatus.SUCCESS;
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
+@Api(tags = {"마이페이지 API"})
 public class UserController {
 
     private final AuthService authService;
@@ -30,9 +31,9 @@ public class UserController {
      */
     @GetMapping("/mypage")
     @ApiOperation(value = "회원정보 조회", notes = "이메일로 조회")
-    @ApiResponses({
-            @ApiResponse(responseCode = "500", description = "서버 예외")
-    })
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "500", description = "서버 예외")
+//    })
     public ResponseEntity<BaseResponse> getUser() {
         String email = authService.getUserEmail();
         return ResponseEntity.ok(new BaseResponse(authService.getUserByEmail(email)));
@@ -43,9 +44,9 @@ public class UserController {
      */
     @PutMapping("/mypage")
     @ApiOperation(value = "회원정보 수정", notes = "")
-    @ApiResponses({
-            @ApiResponse(responseCode = "500", description = "서버 예외")
-    })
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "500", description = "서버 예외")
+//    })
     public ResponseEntity<BaseResponse> updateUser(@Validated @RequestBody UserUpdateRequest userUpdateRequest) {
         String email = authService.getUserEmail();
         authService.updateUser(email, userUpdateRequest);
@@ -57,9 +58,9 @@ public class UserController {
      */
     @DeleteMapping("/mypage")
     @ApiOperation(value = "회원정보 삭제", notes = "")
-    @ApiResponses({
-            @ApiResponse(responseCode = "500", description = "서버 예외")
-    })
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "500", description = "서버 예외")
+//    })
     public ResponseEntity<BaseResponse> deleteUser() {
         String email = authService.getUserEmail();
         authService.deleteUser(email);
@@ -71,9 +72,9 @@ public class UserController {
      */
     @PostMapping("/log-out")
     @ApiOperation(value = "로그아웃", notes = "redis 토큰 삭제")
-    @ApiResponses({
-            @ApiResponse(responseCode = "500", description = "서버 예외")
-    })
+//    @ApiResponses({
+//            @ApiResponse(responseCode = "500", description = "서버 예외")
+//    })
     public ResponseEntity<BaseResponse> logout(HttpServletResponse response) {
         authService.logout(response);
         return ResponseEntity.ok(new BaseResponse(SUCCESS));
