@@ -47,9 +47,6 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
     public ResponseEntity<BaseResponse> signUp(@Validated @RequestBody UserSignUpRequest userSignUpRequest) {
-        if(userSignUpRequest == null) {
-            throw new BaseException(EMPTY_INPUT_VALUE);
-        }
         if (!isRegexEmail(userSignUpRequest.getEmail())) {
             throw new BaseException(INVALID_EMAIL);
         }
@@ -70,9 +67,6 @@ public class AuthController {
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
     public ResponseEntity<BaseResponse> signIn(@Validated @RequestBody UserSignInRequest userSignInRequest, HttpServletResponse response) {
-        if(userSignInRequest == null) {
-            throw new BaseException(EMPTY_INPUT_VALUE);
-        }
         // User 등록 및 Refresh Token 저장
         TokenDto tokenDto = authService.signIn(userSignInRequest);
         setToken(response, tokenDto);
