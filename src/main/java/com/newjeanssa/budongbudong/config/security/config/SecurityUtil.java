@@ -19,7 +19,7 @@ public class SecurityUtil {
 
     public static String getCurrentMemberId() {
         final Authentication authentication =
-                SecurityContextHolder.getContext().getAuthentication();
+            SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null || authentication.getName() == null) {
             throw new RuntimeException("인증 정보가 없습니다.");

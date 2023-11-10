@@ -1,7 +1,8 @@
 package com.newjeanssa.budongbudong.config.security.jwt;
-
 import lombok.Builder;
 import lombok.Data;
+
+
 
 @Data
 @Builder

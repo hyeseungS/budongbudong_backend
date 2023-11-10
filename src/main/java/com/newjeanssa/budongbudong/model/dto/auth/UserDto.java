@@ -7,9 +7,9 @@ import lombok.*;
 @Builder
 public class UserDto {
     private Long id;
-    private String name;;
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
-    private Authority authority;
+    private String name;
+    private Role role;
 }
