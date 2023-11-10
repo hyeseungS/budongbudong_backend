@@ -5,6 +5,7 @@ import com.newjeanssa.budongbudong.config.security.jwt.JwtTokenProvider;
 import com.newjeanssa.budongbudong.config.security.jwt.TokenDto;
 import com.newjeanssa.budongbudong.config.security.service.RedisService;
 import com.newjeanssa.budongbudong.model.dao.UserDao;
+import com.newjeanssa.budongbudong.model.dto.auth.Role;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.dto.auth.UserSignInRequest;
 import com.newjeanssa.budongbudong.model.dto.auth.UserSignUpRequest;
@@ -52,6 +53,7 @@ public class AuthService {
                 .email(userSignUpRequest.getEmail())
                 .name(userSignUpRequest.getName())
                 .password(passwordEncoder.encode(userSignUpRequest.getPassword()))
+                .role(Role.USER)
                 .build();
         userDao.save(userDto);
     }
@@ -111,8 +113,7 @@ public class AuthService {
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 principal, credentials
         );
-        Authentication authentication = authenticationManagerBuilder.getObject()
-                .authenticate(authenticationToken);
+        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         return generateToken(SERVER, authentication.getName(), getAuthorities(authentication));
