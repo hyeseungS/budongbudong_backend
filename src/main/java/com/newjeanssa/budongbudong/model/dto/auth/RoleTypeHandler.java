@@ -40,7 +40,7 @@ public class RoleTypeHandler implements TypeHandler<Role> {
             case "ROLE_USER" :
                 role = Role.USER;
                 break;
-            default:
+            case "ROLE_ADMIN" :
                 role = Role.ADMIN;
                 break;
         }

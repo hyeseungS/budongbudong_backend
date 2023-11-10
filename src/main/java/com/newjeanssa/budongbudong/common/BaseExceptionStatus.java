@@ -17,7 +17,10 @@ public enum BaseExceptionStatus {
     FAIL_LOGIN(HttpStatus.BAD_REQUEST, 2005, "로그인 실패"),
     EMPTY_INPUT_VALUE(HttpStatus.BAD_REQUEST, 2006, "값을 모두 입력해주세요"),
     EXPIRED_ACCESS(HttpStatus.UNAUTHORIZED, 2007, "Access Token 만료일자 초과 재발급 필요"),
-    INVALID_REFRESH(HttpStatus.UNAUTHORIZED, 2008, "재발급 실패, 재로그인 필요");
+    INVALID_REFRESH(HttpStatus.UNAUTHORIZED, 2008, "재발급 실패, 재로그인 필요"),
+
+    // 공지사항
+    INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, 2009, "값을 다시 확인해주세요");
 
     private HttpStatus httpStatus;
     private final int code;
