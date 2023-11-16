@@ -3,6 +3,7 @@ package com.newjeanssa.budongbudong.controller;
 import com.newjeanssa.budongbudong.common.BaseException;
 import com.newjeanssa.budongbudong.common.BaseResponse;
 import com.newjeanssa.budongbudong.config.security.jwt.TokenDto;
+import com.newjeanssa.budongbudong.model.dto.auth.Role;
 import com.newjeanssa.budongbudong.model.dto.auth.UserSignInRequest;
 import com.newjeanssa.budongbudong.model.dto.auth.UserSignUpRequest;
 import com.newjeanssa.budongbudong.model.service.auth.AuthService;
@@ -53,7 +54,27 @@ public class AuthController {
         if (!isRegexPassword(userSignUpRequest.getPassword())) {
             throw new BaseException(INVALID_PASSWORD);
         }
-        authService.signUp(userSignUpRequest);
+        authService.signUp(userSignUpRequest, Role.USER);
+        return ResponseEntity.ok(new BaseResponse<>(SUCCESS));
+    }
+
+    /*
+    관리자 회원가입
+     */
+    @PostMapping("/sign-up-admin")
+    @Operation(summary = "관리자 회원가입", description = "이메일 형식 검사 + 비밀번호 형식(영문 + 특수문자 8자이상)")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "2002-이메일형식예외, 2003-비밀번호형식예외, 2004-이미존재하는회원, 2006-미입력칸존재"),
+            @ApiResponse(responseCode = "500", description = "서버 예외")
+    })
+    public ResponseEntity<BaseResponse> signUpAdmin(@Validated @RequestBody UserSignUpRequest userSignUpRequest) {
+        if (!isRegexEmail(userSignUpRequest.getEmail())) {
+            throw new BaseException(INVALID_EMAIL);
+        }
+        if (!isRegexPassword(userSignUpRequest.getPassword())) {
+            throw new BaseException(INVALID_PASSWORD);
+        }
+        authService.signUp(userSignUpRequest, Role.ADMIN);
         return ResponseEntity.ok(new BaseResponse<>(SUCCESS));
     }
 

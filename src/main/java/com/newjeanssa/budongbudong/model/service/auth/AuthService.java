@@ -44,7 +44,7 @@ public class AuthService {
     회원가입
      */
     @Transactional
-    public void signUp(UserSignUpRequest userSignUpRequest) {
+    public void signUp(UserSignUpRequest userSignUpRequest, Role role) {
         if(userDao.findByEmail(userSignUpRequest.getEmail()).isPresent()){
             throw new BaseException(EXIST_ACCOUNT);
         }
@@ -53,7 +53,7 @@ public class AuthService {
                 .email(userSignUpRequest.getEmail())
                 .name(userSignUpRequest.getName())
                 .password(passwordEncoder.encode(userSignUpRequest.getPassword()))
-                .role(Role.USER)
+                .role(role)
                 .build();
         userDao.save(userDto);
     }
