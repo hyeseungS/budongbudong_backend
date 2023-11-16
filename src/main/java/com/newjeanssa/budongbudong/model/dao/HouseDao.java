@@ -1,12 +1,18 @@
 package com.newjeanssa.budongbudong.model.dao;
 
-import com.newjeanssa.budongbudong.model.dto.house.HouseDealDto;
-import com.newjeanssa.budongbudong.model.dto.house.HouseDealRequest;
+import com.newjeanssa.budongbudong.model.dto.house.AptAreaDto;
+import com.newjeanssa.budongbudong.model.dto.house.AptCodeDto;
+import com.newjeanssa.budongbudong.model.dto.house.AptDto;
+import com.newjeanssa.budongbudong.model.dto.house.HouseRequest;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 @Mapper
 public interface HouseDao {
-    List<HouseDealDto> findHouseDeals(HouseDealRequest houseDealRequest);
+    List<AptCodeDto> findHouseList(HouseRequest houseRequest);
+    void updateHit(String aptCode);
+    AptDto findHouseDetail(String aptCode);
+    List<AptAreaDto> findAreaList(String aptCode);
+    List<AptDto> findHouseCompareList(List<String> dealList);
 }

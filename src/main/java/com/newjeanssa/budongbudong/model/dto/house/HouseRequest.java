@@ -3,13 +3,12 @@ package com.newjeanssa.budongbudong.model.dto.house;
 import lombok.*;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class HouseDealRequest {
+public class HouseRequest {
     @NotEmpty
     private String sidoName;
 
@@ -18,10 +17,4 @@ public class HouseDealRequest {
 
     @NotEmpty
     private String dongName;
-
-    @NotNull
-    private int dealYear;
-
-    @NotNull
-    private int dealMonth;
 }
