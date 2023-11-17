@@ -45,7 +45,7 @@ public class HouseController {
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> getHouseDetailList(@Validated @RequestParam String aptcode) {
+    public ResponseEntity<BaseResponse> getHouseDetailList(@PathVariable String aptcode) {
         return ResponseEntity.ok(new BaseResponse(houseService.findHouseDetail(aptcode)));
     }
 
@@ -57,7 +57,7 @@ public class HouseController {
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> getHouseCompareList(@Validated @ModelAttribute List<String> dealList) {
+    public ResponseEntity<BaseResponse> getHouseCompareList(@Validated @RequestParam List<String> dealList) {
         return ResponseEntity.ok(new BaseResponse(houseService.findHouseCompareList(dealList)));
     }
 }

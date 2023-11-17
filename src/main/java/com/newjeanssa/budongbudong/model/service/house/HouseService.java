@@ -29,18 +29,14 @@ public class HouseService {
     @Transactional
     public AptDto findHouseDetail(String aptCode) {
         houseDao.updateHit(aptCode);
-        AptDto aptDto = houseDao.findHouseDetail(aptCode);
-//        List<AptAreaDto> aptAreaDtoList = houseDao.findAreaList(aptCode);
-//        aptDto.setAptAreaList(aptAreaDtoList);
-        return aptDto;
+        return houseDao.findHouseDetail(aptCode);
     }
 
     /*
     비교분석 : 매물 id로 조회
      */
     public List<AptDto> findHouseCompareList(List<String> dealList) {
-        //return houseDao.findHouseCompareList(dealList);
-        return null;
+        return houseDao.findHouseCompareList(dealList);
     }
 
 }

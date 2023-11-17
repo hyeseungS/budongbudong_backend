@@ -6,7 +6,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class AptRealHistoryDto {private long aptRealTransId;
+public class AptRealHistoryDto {
     private long aptRealHistoryId;
     private String aptAreaId;
     private String aptId;
