@@ -122,10 +122,11 @@
                t3.administration_cost, t3.holding_tax, t3.upper_limit_sale, t3.lower_limit_sale,
                t3.upper_limit_rent, t3.lower_limit_rent, t3.sale_comp_rent, t4.apt_real_history_id,
                t4.apt_real_history_month, t4.apt_real_history_type, t4.apt_real_history_price
-        FROM apt_real_trans t2 JOIN apt t1 ON t1.apt_id = t2.apt_id
+        FROM apt t1 LEFT OUTER JOIN apt_real_trans t2 ON t1.apt_id = t2.apt_id
                     LEFT OUTER JOIN apt_area t3 ON t1.apt_id = t3.apt_id
                     LEFT OUTER JOIN apt_real_history t4 ON t3.apt_id = t4.apt_id AND t3.apt_area_id = t4.apt_area_id
-        WHERE <foreach collection="list" item="item" index="index" open="apt_real_trans_id IN (" separator="," close=")" nullable="true">
+        WHERE apt_real_trans_id IN
+              <foreach collection="dealList" item="item" open="(" separator="," close=")">
                 #{item}
               </foreach>
     </select>

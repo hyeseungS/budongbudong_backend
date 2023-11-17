@@ -14,5 +14,5 @@ public interface HouseDao {
     void updateHit(String aptCode);
     AptDto findHouseDetail(String aptCode);
     List<AptAreaDto> findAreaList(String aptCode);
-    List<AptDto> findHouseCompareList(List<String> dealList);
+    List<AptDto> findHouseCompareList(List<Integer> dealList);
 }

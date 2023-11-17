@@ -35,7 +35,7 @@ public class HouseService {
     /*
     비교분석 : 매물 id로 조회
      */
-    public List<AptDto> findHouseCompareList(List<String> dealList) {
+    public List<AptDto> findHouseCompareList(List<Integer> dealList) {
         return houseDao.findHouseCompareList(dealList);
     }
 
