@@ -45,6 +45,8 @@ CREATE TABLE apt (
                         heating_system VARCHAR(225),
                         management_office VARCHAR(30),
                         apt_address VARCHAR(225),
+                        lat VARCHAR(225),
+                        lng VARCHAR(225),
                         school_name VARCHAR(225),
                         school_dist VARCHAR(225),
                         school_address VARCHAR(225),
@@ -57,35 +59,37 @@ CREATE TABLE apt (
 
 DROP TABLE IF EXISTS apt_area;
 CREATE TABLE apt_area (
-                        apt_area_id VARCHAR(10) NOT NULL,
-                        apt_id VARCHAR(10),
-                        apt_area_img VARCHAR(225),
-                        apt_area_supply_exclusive VARCHAR(225),
-                        total_room VARCHAR(30),
-                        apt_area_total_households VARCHAR(30),
-                        front_door_structure VARCHAR(30),
-                        price VARCHAR(225),
-                        apt_area_real_trans VARCHAR(225),
-                        administration_cost VARCHAR(225),
-                        holding_tax VARCHAR(225),
-                        upper_limit_sale VARCHAR(30),
-                        lower_limit_sale VARCHAR(30),
-                        upper_limit_rent VARCHAR(30),
-                        lower_limit_rent VARCHAR(30),
-                        sale_comp_rent VARCHAR(30),
-                        FOREIGN KEY (apt_id) REFERENCES apt(apt_id),
-                        PRIMARY KEY (apt_area_id, apt_id)
+                          apt_area_id BIGINT NOT NULL auto_increment,
+                          apt_area VARCHAR(10) NOT NULL,
+                          apt_id VARCHAR(10),
+                          apt_area_img VARCHAR(225),
+                          apt_area_supply_exclusive VARCHAR(225),
+                          total_room VARCHAR(30),
+                          apt_area_total_households VARCHAR(30),
+                          front_door_structure VARCHAR(30),
+                          price VARCHAR(225),
+                          apt_area_real_trans VARCHAR(225),
+                          administration_cost VARCHAR(225),
+                          holding_tax VARCHAR(225),
+                          upper_limit_sale VARCHAR(30),
+                          lower_limit_sale VARCHAR(30),
+                          upper_limit_rent VARCHAR(30),
+                          lower_limit_rent VARCHAR(30),
+                          sale_comp_rent VARCHAR(30),
+                          FOREIGN KEY (apt_id) REFERENCES apt(apt_id),
+                          PRIMARY KEY (apt_area_id, apt_area, apt_id)
 );
 
 DROP TABLE IF EXISTS apt_real_history;
 CREATE TABLE apt_real_history (
-                        apt_real_history_id BIGINT NOT NULL PRIMARY KEY auto_increment,
-                        apt_area_id VARCHAR(10),
-                        apt_id VARCHAR(10),
-                        apt_real_history_month VARCHAR(30),
-                        apt_real_history_type VARCHAR(30),
-                        apt_real_history_price VARCHAR(255),
-                        FOREIGN KEY (apt_area_id, apt_id) REFERENCES apt_area(apt_area_id, apt_id)
+                                  apt_real_history_id BIGINT NOT NULL PRIMARY KEY auto_increment,
+                                  apt_area_id BIGINT,
+                                  apt_area VARCHAR(10) NOT NULL,
+                                  apt_id VARCHAR(10),
+                                  apt_real_history_month VARCHAR(30),
+                                  apt_real_history_type VARCHAR(30),
+                                  apt_real_history_price VARCHAR(255),
+                                  FOREIGN KEY (apt_area_id, apt_area, apt_id) REFERENCES apt_area(apt_area_id, apt_area, apt_id)
 );
 
 DROP TABLE IF EXISTS apt_real_trans;

@@ -25,6 +25,8 @@ public class AptDto {
     private String heatingSystem;
     private String managementOffice;
     private String aptAddress;
+    private String lat;
+    private String lng;
     private String schoolName;
     private String schoolDist;
     private String schoolAddress;

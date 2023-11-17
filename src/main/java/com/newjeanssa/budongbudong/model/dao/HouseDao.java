@@ -1,6 +1,5 @@
 package com.newjeanssa.budongbudong.model.dao;
 
-import com.newjeanssa.budongbudong.model.dto.house.AptAreaDto;
 import com.newjeanssa.budongbudong.model.dto.house.AptCodeDto;
 import com.newjeanssa.budongbudong.model.dto.house.AptDto;
 import com.newjeanssa.budongbudong.model.dto.house.HouseRequest;
@@ -13,6 +12,5 @@ public interface HouseDao {
     List<AptCodeDto> findHouseList(HouseRequest houseRequest);
     void updateHit(String aptCode);
     AptDto findHouseDetail(String aptCode);
-    List<AptAreaDto> findAreaList(String aptCode);
     List<AptDto> findHouseCompareList(List<Integer> dealList);
 }
