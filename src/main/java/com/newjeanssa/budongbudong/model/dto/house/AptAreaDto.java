@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AptAreaDto {
-    private long aptAreaId;
+    private int aptAreaId;
     private String aptArea;
     private String aptId;
     private String aptAreaImg;

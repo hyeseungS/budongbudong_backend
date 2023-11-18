@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 public class AptRealHistoryDto {
     private long aptRealHistoryId;
-    private long aptAreaId;
+    private int aptAreaId;
     private String aptArea;
     private String aptId;
     private String aptRealHistoryMonth;
