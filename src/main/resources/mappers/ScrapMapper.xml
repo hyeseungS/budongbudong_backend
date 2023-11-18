@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newjeanssa.budongbudong.model.dao.ScrapDao">
+    <resultMap type="ScrapDto" id="ScrapResultMap">
+        <id property="scrapId" column="scrap_id" />
+    </resultMap>
+
+    <resultMap type="AptRealTransDto" id="AptRealTransResultMap">
+        <id property="aptRealTransId" column="apt_real_trans_id" />
+        <result property="aptId" column="apt_id" />
+        <result property="aptRealTransName" column="apt_real_trans_name" />
+        <result property="aptRealTransPrice" column="apt_real_trans_price" />
+        <result property="aptRealTransImg" column="apt_real_trans_img" />
+        <result property="aptRealTransFloor" column="apt_real_trans_floor" />
+        <result property="aptRealTransDir" column="apt_real_trans_dir" />
+        <result property="aptRealTransArea" column="apt_real_trans_area" />
+    </resultMap>
+
+    <resultMap type="ScrapDto" id="ScrapAptRealTransResultMap" extends="ScrapResultMap">
+        <collection property="aptRealTransDto" resultMap="AptRealTransResultMap"/>
+    </resultMap>
+
+    <insert id="insertScrap">
+        INSERT INTO scrap (user_id, apt_real_trans_id)
+        VALUES ( #{userId}, #{aptRealTransId})
+    </insert>
+
+    <select id="selectScraps" parameterType="long" resultMap="ScrapAptRealTransResultMap">
+        SELECT t1.scrap_id, t2.apt_real_trans_id, t2.apt_id, t2.apt_real_trans_name, t2.apt_real_trans_price,
+               t2.apt_real_trans_img, t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area
+        FROM scrap t1 JOIN apt_real_trans t2 ON t1.apt_real_trans_id = t2.apt_real_trans_id
+        WHERE user_id = #{userId}
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="selectScrap">
+        SELECT scrap_id
+        FROM scrap
+        WHERE user_id = #{userId} AND apt_real_trans_id = #{aptRealTransId}
+    </select>
+
+    <delete id="deleteScrap">
+        DELETE FROM scrap
+        WHERE user_id = #{userId} AND apt_real_trans_id = #{aptRealTransId}
+    </delete>
+</mapper>
