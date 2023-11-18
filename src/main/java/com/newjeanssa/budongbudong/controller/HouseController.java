@@ -39,7 +39,7 @@ public class HouseController {
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
     public ResponseEntity<BaseResponse> getHouseList(@Validated @ModelAttribute HouseRequest houseRequest) {
-        return ResponseEntity.ok(new BaseResponse(houseService.findHouseList(houseRequest)));
+        return ResponseEntity.ok(new BaseResponse(houseService.getHouseList(houseRequest)));
     }
 
     /*
@@ -51,7 +51,7 @@ public class HouseController {
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
     public ResponseEntity<BaseResponse> getHouseDetailList(@PathVariable String aptcode) {
-        return ResponseEntity.ok(new BaseResponse(houseService.findHouseDetail(aptcode)));
+        return ResponseEntity.ok(new BaseResponse(houseService.getHouseDetail(aptcode)));
     }
 
     /*
@@ -65,6 +65,6 @@ public class HouseController {
     })
 
     public ResponseEntity<BaseResponse> getHouseCompareList(@Parameter(name = "dealList", in = QUERY, array = @ArraySchema( schema = @Schema(type = "int")))  @RequestParam List<Integer> dealList) {
-        return ResponseEntity.ok(new BaseResponse(houseService.findHouseCompareList(dealList)));
+        return ResponseEntity.ok(new BaseResponse(houseService.getHouseCompareList(dealList)));
     }
 }
