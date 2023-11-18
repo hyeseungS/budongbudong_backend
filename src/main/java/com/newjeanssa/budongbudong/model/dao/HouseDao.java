@@ -9,8 +9,8 @@ import java.util.List;
 
 @Mapper
 public interface HouseDao {
-    List<AptCodeDto> findHouseList(HouseRequest houseRequest);
+    List<AptCodeDto> selectHouseList(HouseRequest houseRequest);
     void updateHit(String aptCode);
-    AptDto findHouseDetail(String aptCode);
-    List<AptDto> findHouseCompareList(List<Integer> dealList);
+    AptDto selectHouseDetail(String aptCode);
+    List<AptDto> selectHouseCompareList(List<Integer> dealList);
 }

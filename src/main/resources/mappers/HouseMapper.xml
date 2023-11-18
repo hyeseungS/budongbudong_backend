@@ -82,7 +82,7 @@
         <collection property="aptRealTransList" resultMap="AptRealTransResultMap" notNullColumn="apt_real_trans_id" />
     </resultMap>
 
-    <select id="findHouseList" parameterType="HouseRequest" resultType="AptCodeDto">
+    <select id="selectHouseList" parameterType="HouseRequest" resultType="AptCodeDto">
         SELECT t2.apt_id aptCode, t2.apt_name aptName, t2.apt_address aptAddress, t2.lat, t2.lng,
         FROM dong_code t1 LEFT OUTER JOIN apt t2 ON t1.dong_code = t2.dong_code
         WHERE t1.sido_name = #{sidoName} AND t1.gugun_name = #{gugunName} AND t1.dong_name = #{dongName}
@@ -94,7 +94,7 @@
         WHERE apt_id = #{aptCode}
     </update>
 
-    <select id="findHouseDetail" parameterType="String" resultMap="AptInfoResultMap">
+    <select id="selectHouseDetail" parameterType="String" resultMap="AptInfoResultMap">
         SELECT t1.apt_id, t1.dong_code, t1.apt_name, t1.total_dong, t1.sale_price, t1.rent_price,
                t1.total_households, t1.apt_floor, t1.approval_date, t1.total_parking_lot,
                t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
@@ -113,7 +113,7 @@
         WHERE t1.apt_id = #{aptCode}
     </select>
 
-    <select id="findHouseCompareList" parameterType="java.util.List" resultMap="AptInfoResultMap">
+    <select id="selectHouseCompareList" parameterType="java.util.List" resultMap="AptInfoResultMap">
         SELECT t1.apt_id, t1.dong_code, t1.apt_name, t1.total_dong, t1.sale_price, t1.rent_price,
                t1.total_households, t1.apt_floor, t1.approval_date, t1.total_parking_lot,
                t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,

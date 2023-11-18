@@ -19,24 +19,24 @@ public class HouseService {
     /*
         시도, 구군, 동 검색
      */
-    public List<AptCodeDto> findHouseList(HouseRequest houseRequest) {
-        return houseDao.findHouseList(houseRequest);
+    public List<AptCodeDto> getHouseList(HouseRequest houseRequest) {
+        return houseDao.selectHouseList(houseRequest);
     }
 
     /*
     아파트 코드로 조회
      */
     @Transactional
-    public AptDto findHouseDetail(String aptCode) {
+    public AptDto getHouseDetail(String aptCode) {
         houseDao.updateHit(aptCode);
-        return houseDao.findHouseDetail(aptCode);
+        return houseDao.selectHouseDetail(aptCode);
     }
 
     /*
     비교분석 : 매물 id로 조회
      */
-    public List<AptDto> findHouseCompareList(List<Integer> dealList) {
-        return houseDao.findHouseCompareList(dealList);
+    public List<AptDto> getHouseCompareList(List<Integer> dealList) {
+        return houseDao.selectHouseCompareList(dealList);
     }
 
 }
