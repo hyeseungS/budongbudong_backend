@@ -4,36 +4,134 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.newjeanssa.budongbudong.model.dao.HouseDao">
-    <resultMap type="HouseDealDto" id="HouseDealResultMap">
-        <id property="no" column="no" />
-        <result property="dealYear" column="dealYear" />
-        <result property="dealMonth" column="dealMonth" />
-        <result property="dealDay" column="dealDay" />
-        <result property="area" column="area" />
-        <result property="floor" column="floor" />
-        <result property="aptCode" column="aptCode" />
-    </resultMap>
-
-    <resultMap type="HouseInfoDto" id="HouseInfoResultMap">
-        <id property="aptCode" column="aptCode" />
-        <result property="roadName" column="roadName" />
-        <result property="dong" column="dong" />
-        <result property="apartmentName" column="apartmentName" />
-        <result property="lng" column="lng" />
+    <resultMap type="AptDto" id="AptResultMap">
+        <id property="aptId" column="apt_id" />
+        <result property="dongCode" column="dong_code" />
+        <result property="aptName" column="apt_name" />
+        <result property="totalDong" column="total_dong" />
+        <result property="salePrice" column="sale_price" />
+        <result property="rentPrice" column="rent_price" />
+        <result property="totalHouseholds" column="total_households" />
+        <result property="aptFloor" column="apt_floor" />
+        <result property="approvalDate" column="approval_date" />
+        <result property="totalParkingLot" column="total_parking_lot" />
+        <result property="floorAreaRatio" column="floor_area_ratio" />
+        <result property="buildingLandRatio" column="building_land_ratio" />
+        <result property="constructionCompany" column="construction_company" />
+        <result property="heatingSystem" column="heating_system" />
+        <result property="managementOffice" column="management_office" />
+        <result property="aptAddress" column="apt_address" />
         <result property="lat" column="lat" />
+        <result property="lng" column="lng" />
+        <result property="schoolName" column="school_name" />
+        <result property="schoolDist" column="school_dist" />
+        <result property="schoolAddress" column="school_address" />
+        <result property="aptHit" column="apt_hit" />
+        <result property="totalScore" column="total_score" />
+        <result property="interiorScore" column="interior_score" />
+        <result property="facilitiesScore" column="facilities_score" />
     </resultMap>
 
-    <resultMap type="HouseDealDto" id="HouseDealInfoResultMap" extends="HouseDealResultMap">
-        <collection property="houseInfoDto" resultMap="HouseInfoResultMap"/>
+    <resultMap type="AptAreaDto" id="AptAreaResultMap">
+        <id property="aptAreaId" column="apt_area_id" />
+        <id property="aptArea" column="apt_area" />
+        <id property="aptId" column="apt_id" />
+        <result property="aptAreaImg" column="apt_area_img" />
+        <result property="aptAreaSupplyExclusive" column="apt_area_supply_exclusive" />
+        <result property="totalRoom" column="total_room" />
+        <result property="aptAreaTotalHouseholds" column="apt_area_total_households" />
+        <result property="frontDoorStructure" column="front_door_structure" />
+        <result property="price" column="price" />
+        <result property="aptAreaRealTrans" column="apt_area_real_trans" />
+        <result property="administrationCost" column="administration_cost" />
+        <result property="holdingTax" column="holding_tax" />
+        <result property="upperLimitSale" column="upper_limit_sale" />
+        <result property="lowerLimitSale" column="lower_limit_sale" />
+        <result property="upperLimitRent" column="upper_limit_rent" />
+        <result property="lowerLimitRent" column="lower_limit_rent" />
+        <result property="saleCompRent" column="sale_comp_rent" />
     </resultMap>
 
+    <resultMap type="AptRealHistoryDto" id="AptRealHistoryResultMap">
+        <id property="aptRealHistoryId" column="apt_real_history_id" />
+        <result property="aptAreaId" column="apt_area_id" />
+        <result property="aptArea" column="apt_area" />
+        <result property="aptId" column="apt_id" />
+        <result property="aptRealHistoryMonth" column="apt_real_history_month" />
+        <result property="aptRealHistoryType" column="apt_real_history_type" />
+        <result property="aptRealHistoryPrice" column="apt_real_history_price" />
+    </resultMap>
 
+    <resultMap id="AptAreaInfoResultMap" type="AptAreaDto" extends="AptAreaResultMap">
+        <collection property="aptRealHistoryList" resultMap="AptRealHistoryResultMap" notNullColumn="apt_real_history_id" />
+    </resultMap>
 
-    <select id="findHouseDeals" parameterType="HouseDealRequest" resultMap="HouseDealInfoResultMap">
-        SELECT t2.aptCode, t2.roadName, t2.dong, t2.apartmentName, t2.lng, t2.lat, t3.dealYear, t3.dealMonth, t3.dealDay, t3.area, t3.floor
-        FROM dongcode t1 JOIN houseinfo t2 ON t1.dongCode = t2.dongCode
-            JOIN housedeal t3 ON t2.aptCode = t3.aptCode
-        WHERE t1.sidoName = #{sidoName} AND t1.gugunName = #{gugunName} AND t1.dongName = #{dongName}
-            AND t3.dealYear = #{dealYear} AND t3.dealMonth = #{dealMonth}
+    <resultMap type="AptRealTransDto" id="AptRealTransResultMap">
+        <id property="aptRealTransId" column="apt_real_trans_id" />
+        <result property="aptId" column="apt_id" />
+        <result property="aptRealTransName" column="apt_real_trans_name" />
+        <result property="aptRealTransPrice" column="apt_real_trans_price" />
+        <result property="aptRealTransImg" column="apt_real_trans_img" />
+        <result property="aptRealTransFloor" column="apt_real_trans_floor" />
+        <result property="aptRealTransDir" column="apt_real_trans_dir" />
+        <result property="aptRealTransArea" column="apt_real_trans_area" />
+    </resultMap>
+
+    <resultMap id="AptInfoResultMap" type="AptDto" extends="AptResultMap">
+        <collection property="aptAreaList" resultMap="AptAreaInfoResultMap" />
+        <collection property="aptRealTransList" resultMap="AptRealTransResultMap" notNullColumn="apt_real_trans_id" />
+    </resultMap>
+
+    <select id="findHouseList" parameterType="HouseRequest" resultType="AptCodeDto">
+        SELECT t2.apt_id aptCode, t2.apt_name aptName, t2.apt_address aptAddress, t2.lat, t2.lng,
+        FROM dong_code t1 LEFT OUTER JOIN apt t2 ON t1.dong_code = t2.dong_code
+        WHERE t1.sido_name = #{sidoName} AND t1.gugun_name = #{gugunName} AND t1.dong_name = #{dongName}
+    </select>
+
+    <update id="updateHit" parameterType="String">
+        UPDATE apt
+        SET apt_hit = apt_hit + 1
+        WHERE apt_id = #{aptCode}
+    </update>
+
+    <select id="findHouseDetail" parameterType="String" resultMap="AptInfoResultMap">
+        SELECT t1.apt_id, t1.dong_code, t1.apt_name, t1.total_dong, t1.sale_price, t1.rent_price,
+               t1.total_households, t1.apt_floor, t1.approval_date, t1.total_parking_lot,
+               t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
+               t1.heating_system, t1.management_office, t1.apt_address, t1.lat, t1.lng, t1.school_name,
+               t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.interior_score, t1.facilities_score,
+               t2.apt_id, t2.apt_real_trans_id, t2.apt_real_trans_name, t2.apt_real_trans_price, t2.apt_real_trans_img,
+               t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area,
+               t3.apt_area_id, t3.apt_area, t3.apt_area_img, t3.apt_area_supply_exclusive, t3.total_room,
+               t3.apt_area_total_households, t3.front_door_structure, t3.price, t3.apt_area_real_trans,
+               t3.administration_cost, t3.holding_tax, t3.upper_limit_sale, t3.lower_limit_sale,
+               t3.upper_limit_rent, t3.lower_limit_rent, t3.sale_comp_rent, t4.apt_real_history_id,
+               t4.apt_real_history_month, t4.apt_real_history_type, t4.apt_real_history_price
+        FROM apt t1 LEFT OUTER JOIN apt_real_trans t2 ON t1.apt_id = t2.apt_id
+                    LEFT OUTER JOIN apt_area t3 ON t1.apt_id = t3.apt_id
+                    LEFT OUTER JOIN apt_real_history t4 ON t3.apt_id = t4.apt_id AND t3.apt_area_id = t4.apt_area_id AND t3.apt_area = t4.apt_area
+        WHERE t1.apt_id = #{aptCode}
+    </select>
+
+    <select id="findHouseCompareList" parameterType="java.util.List" resultMap="AptInfoResultMap">
+        SELECT t1.apt_id, t1.dong_code, t1.apt_name, t1.total_dong, t1.sale_price, t1.rent_price,
+               t1.total_households, t1.apt_floor, t1.approval_date, t1.total_parking_lot,
+               t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
+               t1.heating_system, t1.management_office, t1.apt_address, t1.lat, t1.lng, t1.school_name,
+               t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.interior_score, t1.facilities_score,
+               t2.apt_id, t2.apt_real_trans_id, t2.apt_real_trans_name, t2.apt_real_trans_price, t2.apt_real_trans_img,
+               t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area,
+               t3.apt_area_id, t3.apt_area, t3.apt_area_img, t3.apt_area_supply_exclusive, t3.total_room,
+               t3.apt_area_total_households, t3.front_door_structure, t3.price, t3.apt_area_real_trans,
+               t3.administration_cost, t3.holding_tax, t3.upper_limit_sale, t3.lower_limit_sale,
+               t3.upper_limit_rent, t3.lower_limit_rent, t3.sale_comp_rent, t4.apt_real_history_id,
+               t4.apt_real_history_month, t4.apt_real_history_type, t4.apt_real_history_price
+        FROM apt t1 LEFT OUTER JOIN apt_real_trans t2 ON t1.apt_id = t2.apt_id
+                    LEFT OUTER JOIN apt_area t3 ON t1.apt_id = t3.apt_id
+                    LEFT OUTER JOIN apt_real_history t4 ON t3.apt_id = t4.apt_id AND t3.apt_area_id = t4.apt_area_id AND t3.apt_area = t4.apt_area
+        WHERE apt_real_trans_id IN
+              <foreach collection="dealList" item="item" open="(" separator="," close=")">
+                #{item}
+              </foreach>
     </select>
 </mapper>
