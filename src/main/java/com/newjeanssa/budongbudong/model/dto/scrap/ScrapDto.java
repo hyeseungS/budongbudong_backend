@@ -1,6 +1,5 @@
-package com.newjeanssa.budongbudong.model.dto.like;
+package com.newjeanssa.budongbudong.model.dto.scrap;
 
-import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.dto.house.AptRealTransDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeDto {
-    private Long likeId;
+public class ScrapDto {
+    private Long scrapId;
     private AptRealTransDto aptRealTransDto;
-    private UserDto userDto;
 }

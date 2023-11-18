@@ -105,11 +105,12 @@ CREATE TABLE apt_real_trans (
                                 FOREIGN KEY (apt_id) REFERENCES apt(apt_id)
 );
 
-DROP TABLE IF EXISTS like;
-CREATE TABLE like (
-                                like_id BIGINT NOT NULL PRIMARY KEY auto_increment,
-                                apt_real_trans_id BIGINT NOT NULL,
-                                user_id BIGINT NOT NULL,
-                                FOREIGN KEY (apt_real_trans_id) REFERENCES apt(apt_real_trans_id),
-                                FOREIGN KEY (user_id) REFERENCES user(user_id)
+DROP TABLE IF EXISTS scrap;
+CREATE TABLE scrap (
+                       scrap_id BIGINT NOT NULL PRIMARY KEY auto_increment,
+                       apt_real_trans_id BIGINT NOT NULL,
+                       user_id BIGINT NOT NULL,
+                       create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                       FOREIGN KEY (apt_real_trans_id) REFERENCES apt_real_trans_id(apt_real_trans_id),
+                       FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
