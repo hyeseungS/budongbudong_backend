@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newjeanssa.budongbudong.model.dao.ReviewDao">
+    <resultMap type="ReviewDto" id="ReviewResultMap">
+        <id property="reviewId" column="review_id" />
+        <result property="reviewComment" column="review_comment" />
+        <result property="reviewScore" column="review_score" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <resultMap type="UserDto" id="UserResultMap">
+        <id property="id" column="user_id" />
+        <result property="email" column="email" />
+        <result property="name" column="name" />
+        <result property="role" column="role" />
+    </resultMap>
+
+    <resultMap type="AptDto" id="AptResultMap">
+        <id property="aptId" column="apt_id" />
+    </resultMap>
+
+    <resultMap type="ReviewDto" id="ReviewInfoResultMap" extends="ReviewResultMap">
+        <collection property="userDto" resultMap="UserResultMap"/>
+        <collection property="aptDto" resultMap="AptResultMap"/>
+    </resultMap>
+
+    <insert id="insertReview" parameterType="ReviewDto">
+        INSERT INTO review (user_id, apt_id, review_comment, review_score)
+        VALUES ( #{userDto.id}, #{aptDto.aptId}, #{reviewComment}, #{reviewScore} )
+    </insert>
+
+    <select id="selectReviewsByAptId" parameterType="String" resultMap="ReviewInfoResultMap">
+        SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.review_id, t1.apt_id, t1.review_comment, t1.review_score, t1.create_time
+        FROM review t1 JOIN user t2 ON t1.user_id = t2.user_id
+        WHERE t1.apt_id = #{aptId}
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="selectReviewsByUserId" parameterType="Long" resultMap="ReviewInfoResultMap">
+        SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.review_id, t1.apt_id, t1.review_comment, t1.review_score, t1.create_time
+        FROM review t1 JOIN user t2 ON t1.user_id = t2.user_id
+        WHERE t1.user_id = #{userId}
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="selectReview" parameterType="Long" resultMap="ReviewInfoResultMap">
+        SELECT review_id, apt_id, review_comment, review_score, create_time
+        FROM review
+        WHERE review_id = #{reviewId}
+    </select>
+
+    <update id="updateReview" parameterType="ReviewDto">
+        UPDATE review
+        SET review_comment = #{reviewComment}, review_score = #{reviewScore}
+        WHERE review_id = #{reviewId}
+    </update>
+
+<!--    <update id="updateReviewScore" parameterType="String">-->
+<!--        UPDATE apt-->
+<!--        SET total_score = #{reviewComment}, review_score = #{reviewScore}-->
+<!--        WHERE apt_id = #{aptId}-->
+<!--    </update>-->
+
+    <delete id="deleteReview">
+        DELETE FROM review
+        WHERE review_id = #{reviewId}
+    </delete>
+</mapper>

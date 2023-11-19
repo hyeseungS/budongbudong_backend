@@ -111,6 +111,18 @@ CREATE TABLE scrap (
                        apt_real_trans_id BIGINT NOT NULL,
                        user_id BIGINT NOT NULL,
                        create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-                       FOREIGN KEY (apt_real_trans_id) REFERENCES apt_real_trans_id(apt_real_trans_id),
+                       FOREIGN KEY (apt_real_trans_id) REFERENCES apt_real_trans(apt_real_trans_id),
+                       FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
+
+DROP TABLE IF EXISTS review;
+CREATE TABLE review (
+                       review_id BIGINT NOT NULL PRIMARY KEY auto_increment,
+                       review_comment VARCHAR(225),
+                       review_score INT,
+                       apt_id VARCHAR(10) NOT NULL,
+                       user_id BIGINT NOT NULL,
+                       create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                       FOREIGN KEY (apt_id) REFERENCES apt(apt_id),
                        FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
