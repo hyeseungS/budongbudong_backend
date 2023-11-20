@@ -1,6 +1,7 @@
 package com.newjeanssa.budongbudong.model.service.house;
 
 import com.newjeanssa.budongbudong.model.dao.HouseDao;
+import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.dto.house.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Service
@@ -27,9 +29,15 @@ public class HouseService {
     아파트 코드로 조회
      */
     @Transactional
-    public AptDto getHouseDetail(String aptCode) {
+    public AptDto getHouseDetail(String aptCode, Optional<UserDto> userDto) {
         houseDao.updateHit(aptCode);
-        return houseDao.selectHouseDetail(aptCode);
+        AptDto aptDto = houseDao.selectHouseDetail(aptCode);
+        AptIdsDto aptIdsDto = AptIdsDto.builder()
+                                        .userId(userDto.get().getId())
+                                        .aptId(aptCode)
+                                        .build();
+        aptDto.setAptRealTransList(houseDao.selectAptRealTrans(aptIdsDto));
+        return aptDto;
     }
 
     /*
