@@ -28,7 +28,7 @@
         <result property="schoolAddress" column="school_address" />
         <result property="aptHit" column="apt_hit" />
         <result property="totalScore" column="total_score" />
-        <result property="interiorScore" column="interior_score" />
+        <result property="reviewScore" column="review_score" />
         <result property="facilitiesScore" column="facilities_score" />
     </resultMap>
 
@@ -99,7 +99,7 @@
                t1.total_households, t1.apt_floor, t1.approval_date, t1.total_parking_lot,
                t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
                t1.heating_system, t1.management_office, t1.apt_address, t1.lat, t1.lng, t1.school_name,
-               t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.interior_score, t1.facilities_score,
+               t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.review_score, t1.facilities_score,
                t2.apt_id, t2.apt_real_trans_id, t2.apt_real_trans_name, t2.apt_real_trans_price, t2.apt_real_trans_img,
                t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area,
                t3.apt_area_id, t3.apt_area, t3.apt_area_img, t3.apt_area_supply_exclusive, t3.total_room,
@@ -118,7 +118,7 @@
                t1.total_households, t1.apt_floor, t1.approval_date, t1.total_parking_lot,
                t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
                t1.heating_system, t1.management_office, t1.apt_address, t1.lat, t1.lng, t1.school_name,
-               t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.interior_score, t1.facilities_score,
+               t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.review_score, t1.facilities_score,
                t2.apt_id, t2.apt_real_trans_id, t2.apt_real_trans_name, t2.apt_real_trans_price, t2.apt_real_trans_img,
                t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area,
                t3.apt_area_id, t3.apt_area, t3.apt_area_img, t3.apt_area_supply_exclusive, t3.total_room,

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newjeanssa.budongbudong.model.dao.StoreInfoDao">
+    <resultMap type="StoreInfoResponseDto" id="StoreInfoResultMap">
+        <id property="storeId" column="store_id" />
+        <result property="storeName" column="store_name" />
+        <result property="dongCode" column="dong_code" />
+        <result property="streetAddress" column="street_address" />
+        <result property="lng" column="lng" />
+        <result property="lat" column="lat" />
+    </resultMap>
+
+    <resultMap type="CategoryInfoDto" id="CategoryInfoResultMap">
+        <id property="categoryCode" column="category_code" />
+        <result property="categoryId" column="category_id" />
+        <result property="categoryName" column="category_name" />
+        <result property="subCategoryName" column="sub_category_name" />
+    </resultMap>
+
+    <resultMap id="StoreCategoryInfoResultMap" type="StoreInfoResponseDto" extends="StoreInfoResultMap">
+        <collection property="categoryInfoDto" resultMap="CategoryInfoResultMap" />
+    </resultMap>
+
+    <insert id="insertAll" parameterType="java.util.List" >
+        INSERT INTO store_info ( store_id, store_name, category_code, dong_code, street_address, lng, lat ) VALUES
+        <foreach collection="storeInfoDtoList" item="item" separator=",">
+            ( #{item.storeId}, #{item.storeName}, #{item.categoryCode}, #{item.dongCode}, #{item.streetAddress}, #{item.lng}, #{item.lat} )
+        </foreach>
+    </insert>
+
+    <select id="selectByCategoryCode" parameterType="String" resultMap="StoreCategoryInfoResultMap" >
+        SELECT t1.category_code, t1.category_id, t1.category_name, t1.sub_category_name, t2.store_id, t2.store_name, t2.dong_code, t2.street_address, t2.lng, t2.lat
+        FROM category_info t1 JOIN store_info t2 ON t1.category_code = t2.category_code
+        WHERE t1.category_code LIKE #{categoryCode}
+    </select>
+
+</mapper>
