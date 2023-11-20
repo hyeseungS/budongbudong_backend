@@ -23,9 +23,8 @@ public class BudongbudongApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:9000")
                         .allowedOriginPatterns("*")
-                        .allowedHeaders("*")
+                        .allowedHeaders("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .exposedHeaders("*")
                         .allowedMethods("*")
                         .allowCredentials(true);
