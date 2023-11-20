@@ -3,6 +3,7 @@ package com.newjeanssa.budongbudong.controller.review;
 import com.newjeanssa.budongbudong.common.BaseException;
 import com.newjeanssa.budongbudong.common.BaseResponse;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
+import com.newjeanssa.budongbudong.model.dto.review.ReviewIdsDto;
 import com.newjeanssa.budongbudong.model.dto.review.ReviewRegisterRequest;
 import com.newjeanssa.budongbudong.model.dto.review.ReviewUpdateRequest;
 import com.newjeanssa.budongbudong.model.service.auth.UserService;
@@ -86,10 +87,11 @@ public class ReviewController {
     public ResponseEntity<BaseResponse> modifyNotice(@RequestBody ReviewUpdateRequest reviewUpdateRequest) {
 
         Optional<UserDto> userDto = userService.getUser();
-        if(reviewService.getReview(reviewUpdateRequest.getReviewId()).isEmpty()) {
+        Optional<ReviewIdsDto> reviewIdsDto = reviewService.getReview(reviewUpdateRequest.getReviewId());
+        if(reviewIdsDto.isEmpty()) {
             throw new BaseException(INVALID_INPUT_VALUE);
         }
-        reviewService.modifyReview(userDto, reviewUpdateRequest);
+        reviewService.modifyReview(userDto, reviewIdsDto.get().getAptId(), reviewUpdateRequest);
 
         return ResponseEntity.ok(new BaseResponse(SUCCESS));
     }
@@ -97,17 +99,18 @@ public class ReviewController {
     /*
     리뷰 삭제
      */
-    @DeleteMapping("/{reviewId}/{aptId}")
+    @DeleteMapping("/{reviewId}")
     @ApiOperation(value = "리뷰 삭제", notes = "리뷰 삭제")
     @ApiResponses({
             @ApiResponse(responseCode = "400", description = "2009-리뷰 아이디 입력 오류"),
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> removeNotice(@PathVariable Long reviewId, @PathVariable String aptId) {
-        if(reviewService.getReview(reviewId).isEmpty()) {
+    public ResponseEntity<BaseResponse> removeNotice(@PathVariable Long reviewId) {
+        Optional<ReviewIdsDto> reviewIdsDto = reviewService.getReview(reviewId);
+        if(reviewIdsDto.isEmpty()) {
             throw new BaseException(INVALID_INPUT_VALUE);
         }
-        reviewService.removeReview(reviewId, aptId);
+        reviewService.removeReview(reviewIdsDto.get());
 
         return ResponseEntity.ok(new BaseResponse(SUCCESS));
     }
