@@ -8,7 +8,8 @@ import lombok.*;
 @AllArgsConstructor
 public class TopDto {
     private String aptId;
-    private String dongName;
-    private String aptAddress;
     private String aptName;
+    private String aptAddress;
+    private String salePrice;
+    private String rentPrice;
 }

@@ -8,19 +8,13 @@
         <id property="scrapId" column="scrap_id" />
     </resultMap>
 
-    <resultMap type="AptRealTransDto" id="AptRealTransResultMap">
-        <id property="aptRealTransId" column="apt_real_trans_id" />
-        <result property="aptId" column="apt_id" />
-        <result property="aptRealTransName" column="apt_real_trans_name" />
-        <result property="aptRealTransPrice" column="apt_real_trans_price" />
-        <result property="aptRealTransImg" column="apt_real_trans_img" />
-        <result property="aptRealTransFloor" column="apt_real_trans_floor" />
-        <result property="aptRealTransDir" column="apt_real_trans_dir" />
-        <result property="aptRealTransArea" column="apt_real_trans_area" />
+    <resultMap id="ScrapAptRealTransResultMap" type="ScrapDto" extends="ScrapResultMap">
+        <collection property="aptRealTransDto" resultMap="com.newjeanssa.budongbudong.model.dao.HouseDao.AptRealTransResultMap"/>
     </resultMap>
 
-    <resultMap type="ScrapDto" id="ScrapAptRealTransResultMap" extends="ScrapResultMap">
-        <collection property="aptRealTransDto" resultMap="AptRealTransResultMap"/>
+    <resultMap id="ScrapAptRealTransResponseResultMap" type="ScrapResponseDto">
+        <result property="dongName" column="dong_name" />
+        <collection property="scrapDtoList" resultMap="ScrapAptRealTransResultMap"/>
     </resultMap>
 
     <insert id="insertScrap">
@@ -28,10 +22,21 @@
         VALUES ( #{userId}, #{aptRealTransId})
     </insert>
 
-    <select id="selectScraps" parameterType="long" resultMap="ScrapAptRealTransResultMap">
-        SELECT t1.scrap_id, t2.apt_real_trans_id, t2.apt_id, t2.apt_real_trans_name, t2.apt_real_trans_price,
+    <select id="selectScraps" parameterType="long" resultMap="ScrapAptRealTransResponseResultMap">
+        SELECT t4.dong_name, t1.scrap_id, t2.apt_real_trans_id, t2.apt_id, t2.apt_real_trans_name, t2.apt_real_trans_price,
                t2.apt_real_trans_img, t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area
         FROM scrap t1 JOIN apt_real_trans t2 ON t1.apt_real_trans_id = t2.apt_real_trans_id
+                      JOIN apt t3 ON t2.apt_id = t3.apt_id
+                      JOIN dong_code t4 ON t3.dong_code = t4.dong_code
+        WHERE user_id = #{userId}
+        ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="selectDongNames" parameterType="long" resultType="String">
+        SELECT t4.dong_name
+        FROM scrap t1 JOIN apt_real_trans t2 ON t1.apt_real_trans_id = t2.apt_real_trans_id
+                    JOIN apt t3 ON t2.apt_id = t3.apt_id
+                    JOIN dong_code t4 ON t3.dong_code = t4.dong_code
         WHERE user_id = #{userId}
         ORDER BY t1.create_time DESC
     </select>

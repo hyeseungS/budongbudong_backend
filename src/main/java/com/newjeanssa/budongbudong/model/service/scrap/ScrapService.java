@@ -2,7 +2,7 @@ package com.newjeanssa.budongbudong.model.service.scrap;
 
 import com.newjeanssa.budongbudong.model.dao.ScrapDao;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
-import com.newjeanssa.budongbudong.model.dto.scrap.ScrapDto;
+import com.newjeanssa.budongbudong.model.dto.scrap.ScrapResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,14 +23,14 @@ public class ScrapService {
     }
 
     /*
-    공지사항 전체 조회
+    관심매물 전체 조회
      */
-    public List<ScrapDto> getScraps(Optional<UserDto> userDto) {
+    public List<ScrapResponseDto> getScraps(Optional<UserDto> userDto) {
         return scrapDao.selectScraps(userDto.get().getId());
     }
 
     /*
-    공지사항 여부 조회
+    관심매물 여부 조회
      */
     public boolean isScrap(Optional<UserDto> userDto, long aptRealTransId) {
         Optional<Long> scrap = scrapDao.selectScrap(userDto.get().getId(), aptRealTransId);
@@ -38,7 +38,7 @@ public class ScrapService {
     }
 
     /*
-    공지사항 삭제
+    관심매물 삭제
      */
     public void removeScrap(Optional<UserDto> userDto, long aptRealTransId) {
         scrapDao.deleteScrap(userDto.get().getId(), aptRealTransId);

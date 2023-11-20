@@ -4,55 +4,56 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.newjeanssa.budongbudong.model.dao.ReviewDao">
-    <resultMap type="ReviewDto" id="ReviewResultMap">
+    <resultMap type="ReviewAptDto" id="ReviewAptResultMap">
         <id property="reviewId" column="review_id" />
+        <result property="aptId" column="apt_id" />
         <result property="reviewComment" column="review_comment" />
         <result property="reviewScore" column="review_score" />
         <result property="createTime" column="create_time" />
     </resultMap>
 
-    <resultMap type="UserDto" id="UserResultMap">
-        <id property="id" column="user_id" />
-        <result property="email" column="email" />
-        <result property="name" column="name" />
-        <result property="role" column="role" />
+    <resultMap type="ReviewUserDto" id="ReviewUserResultMap">
+        <id property="reviewId" column="review_id" />
+        <result property="aptId" column="apt_id" />
+        <result property="aptName" column="apt_name" />
+        <result property="aptAddress" column="apt_address" />
+        <result property="aptDong" column="dong_name" />
+        <result property="reviewComment" column="review_comment" />
+        <result property="reviewScore" column="review_score" />
+        <result property="createTime" column="create_time" />
     </resultMap>
 
-    <resultMap type="AptDto" id="AptResultMap">
-        <id property="aptId" column="apt_id" />
+    <resultMap type="ReviewAptDto" id="ReviewAptInfoResultMap" extends="ReviewAptResultMap">
+        <collection property="userDto" resultMap="com.newjeanssa.budongbudong.model.dao.UserDao.UserResultMap"/>
     </resultMap>
 
-    <resultMap type="ReviewDto" id="ReviewInfoResultMap" extends="ReviewResultMap">
-        <collection property="userDto" resultMap="UserResultMap"/>
-        <collection property="aptDto" resultMap="AptResultMap"/>
-    </resultMap>
-
-    <insert id="insertReview" parameterType="ReviewDto">
+    <insert id="insertReview" parameterType="ReviewAptDto">
         INSERT INTO review (user_id, apt_id, review_comment, review_score)
         VALUES ( #{userDto.id}, #{aptDto.aptId}, #{reviewComment}, #{reviewScore} )
     </insert>
 
-    <select id="selectReviewsByAptId" parameterType="String" resultMap="ReviewInfoResultMap">
+    <select id="selectReviewsByAptId" parameterType="String" resultMap="ReviewAptInfoResultMap">
         SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.review_id, t1.apt_id, t1.review_comment, t1.review_score, t1.create_time
         FROM review t1 JOIN user t2 ON t1.user_id = t2.user_id
         WHERE t1.apt_id = #{aptId}
         ORDER BY t1.create_time DESC
     </select>
 
-    <select id="selectReviewsByUserId" parameterType="Long" resultMap="ReviewInfoResultMap">
-        SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.review_id, t1.apt_id, t1.review_comment, t1.review_score, t1.create_time
-        FROM review t1 JOIN user t2 ON t1.user_id = t2.user_id
+    <select id="selectReviewsByUserId" parameterType="long" resultMap="ReviewUserResultMap">
+        SELECT t1.review_id, t1.apt_id, t1.review_comment, t1.review_score, t1.create_time, t2.apt_name, t2.apt_address, t3.dong_name
+        FROM review t1 JOIN apt t2 ON t1.apt_id = t2.apt_id
+                       JOIN dong_code t3 ON t2.dong_code = t3.dong_code
         WHERE t1.user_id = #{userId}
         ORDER BY t1.create_time DESC
     </select>
 
-    <select id="selectReview" parameterType="Long" resultMap="ReviewInfoResultMap">
-        SELECT review_id, apt_id, review_comment, review_score, create_time
+    <select id="selectReview" parameterType="long" resultType="long">
+        SELECT review_id
         FROM review
         WHERE review_id = #{reviewId}
     </select>
 
-    <update id="updateReview" parameterType="ReviewDto">
+    <update id="updateReview" parameterType="ReviewAptDto">
         UPDATE review
         SET review_comment = #{reviewComment}, review_score = #{reviewScore}
         WHERE review_id = #{reviewId}

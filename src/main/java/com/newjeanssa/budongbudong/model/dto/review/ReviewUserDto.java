@@ -1,6 +1,5 @@
 package com.newjeanssa.budongbudong.model.dto.review;
 
-import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.dto.house.AptDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,11 +12,13 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReviewDto {
+public class ReviewUserDto {
     private Long reviewId;
+    private String aptId;
+    private String aptName;
+    private String aptAddress;
+    private String aptDong;
     private String reviewComment;
     private int reviewScore;
     private LocalDateTime createTime;
-    private AptDto aptDto;
-    private UserDto userDto;
 }
