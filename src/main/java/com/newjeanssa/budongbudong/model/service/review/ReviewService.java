@@ -2,10 +2,7 @@ package com.newjeanssa.budongbudong.model.service.review;
 
 import com.newjeanssa.budongbudong.model.dao.ReviewDao;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
-import com.newjeanssa.budongbudong.model.dto.review.ReviewAptDto;
-import com.newjeanssa.budongbudong.model.dto.review.ReviewRegisterRequest;
-import com.newjeanssa.budongbudong.model.dto.review.ReviewUpdateRequest;
-import com.newjeanssa.budongbudong.model.dto.review.ReviewUserDto;
+import com.newjeanssa.budongbudong.model.dto.review.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -53,7 +50,7 @@ public class ReviewService {
     /*
     리뷰 아이디로 리뷰 상세 조회
      */
-    public Optional<Long> getReview(Long reviewId) {
+    public Optional<ReviewIdsDto> getReview(Long reviewId) {
         return reviewDao.selectReview(reviewId);
     }
 
@@ -61,9 +58,9 @@ public class ReviewService {
     리뷰 수정
      */
     @Transactional
-    public void modifyReview(Optional<UserDto> userDto, ReviewUpdateRequest reviewUpdateRequest) {
+    public void modifyReview(Optional<UserDto> userDto, String aptId, ReviewUpdateRequest reviewUpdateRequest) {
         ReviewAptDto reviewDto = ReviewAptDto.builder()
-                .aptId(reviewUpdateRequest.getAptId())
+                .aptId(aptId)
                 .reviewComment(reviewUpdateRequest.getReviewComment())
                 .reviewScore(reviewUpdateRequest.getReviewScore())
                 .reviewId(reviewUpdateRequest.getReviewId())
@@ -77,9 +74,9 @@ public class ReviewService {
     리뷰 삭제
      */
     @Transactional
-    public void removeReview(Long reviewId, String aptId) {
+    public void removeReview(ReviewIdsDto reviewIdsDto) {
 
-        reviewDao.deleteReview(reviewId);
-        reviewDao.updateReviewScore(aptId);
+        reviewDao.deleteReview(reviewIdsDto.getReviewId());
+        reviewDao.updateReviewScore(reviewIdsDto.getAptId());
     }
 }
