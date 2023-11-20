@@ -1,4 +1,4 @@
-package com.newjeanssa.budongbudong.controller;
+package com.newjeanssa.budongbudong.controller.top;
 
 import com.newjeanssa.budongbudong.common.BaseResponse;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;

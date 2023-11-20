@@ -126,3 +126,15 @@ CREATE TABLE review (
                        FOREIGN KEY (apt_id) REFERENCES apt(apt_id),
                        FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+
+DROP TABLE IF EXISTS qa;
+CREATE TABLE qa (
+                        qa_id BIGINT NOT NULL PRIMARY KEY auto_increment,
+                        qa_title VARCHAR(225),
+                        qa_content VARCHAR(225),
+                        qa_comment VARCHAR(255),
+                        comment_status BOOLEAN,
+                        user_id BIGINT NOT NULL,
+                        create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        FOREIGN KEY (user_id) REFERENCES user(user_id)
+);
