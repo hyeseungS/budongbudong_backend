@@ -63,18 +63,23 @@ public class ReviewService {
     @Transactional
     public void modifyReview(Optional<UserDto> userDto, ReviewUpdateRequest reviewUpdateRequest) {
         ReviewAptDto reviewDto = ReviewAptDto.builder()
+                .aptId(reviewUpdateRequest.getAptId())
                 .reviewComment(reviewUpdateRequest.getReviewComment())
                 .reviewScore(reviewUpdateRequest.getReviewScore())
                 .reviewId(reviewUpdateRequest.getReviewId())
                 .build();
         userDto.ifPresent(reviewDto::setUserDto);
         reviewDao.updateReview(reviewDto);
+        reviewDao.updateReviewScore(reviewDto.getAptId());
     }
 
     /*
     리뷰 삭제
      */
-    public void removeReview(Long reviewId) {
+    @Transactional
+    public void removeReview(Long reviewId, String aptId) {
+
         reviewDao.deleteReview(reviewId);
+        reviewDao.updateReviewScore(aptId);
     }
 }

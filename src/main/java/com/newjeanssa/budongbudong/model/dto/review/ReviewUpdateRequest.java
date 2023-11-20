@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ReviewUpdateRequest {
-
     private Long reviewId;
+    private String aptId;
     private String reviewComment;
     private int reviewScore;
 
