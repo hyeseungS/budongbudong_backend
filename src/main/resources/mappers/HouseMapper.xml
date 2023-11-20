@@ -118,7 +118,7 @@
         SELECT t1.apt_id aptId, t1.apt_real_trans_id aptRealTransId, t1.apt_real_trans_name aptRealTransName,
                t1.apt_real_trans_price aptRealTransPrice, t1.apt_real_trans_img aptRealTransImg,
                t1.apt_real_trans_floor aptRealTransFloor, t1.apt_real_trans_dir aptRealTransDir,
-               t1.apt_real_trans_area aptRealTransArea, t2.scrap_id isScrap
+               t1.apt_real_trans_area aptRealTransArea, IF(t2.scrap_id IS NULL, false, true) isScrap
         FROM apt_real_trans t1 LEFT OUTER JOIN scrap t2 ON t1.apt_real_trans_id = t2.apt_real_trans_id
         WHERE t1.apt_id = #{aptId} AND ((t2.user_id IS NOT NULL AND t2.user_id = #{userId}) OR (t2.user_id IS NULL))
     </select>

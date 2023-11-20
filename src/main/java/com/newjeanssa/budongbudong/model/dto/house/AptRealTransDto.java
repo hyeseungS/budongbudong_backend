@@ -15,5 +15,5 @@ public class AptRealTransDto {
     private String aptRealTransFloor;
     private String aptRealTransDir;
     private String aptRealTransArea;
-    private String isScrap;
+    private boolean isScrap;
 }
