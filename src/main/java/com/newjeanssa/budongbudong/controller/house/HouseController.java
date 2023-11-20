@@ -1,7 +1,9 @@
 package com.newjeanssa.budongbudong.controller.house;
 
 import com.newjeanssa.budongbudong.common.BaseResponse;
+import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.dto.house.HouseRequest;
+import com.newjeanssa.budongbudong.model.service.auth.UserService;
 import com.newjeanssa.budongbudong.model.service.house.HouseService;
 import io.swagger.annotations.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +19,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 
@@ -29,6 +32,7 @@ import static io.swagger.v3.oas.annotations.enums.ParameterIn.QUERY;
 public class HouseController {
 
     private final HouseService houseService;
+    private final UserService userService;
 
     /*
     시도, 구군, 동 조회
@@ -51,7 +55,8 @@ public class HouseController {
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
     public ResponseEntity<BaseResponse> getHouseDetailList(@PathVariable String aptcode) {
-        return ResponseEntity.ok(new BaseResponse(houseService.getHouseDetail(aptcode)));
+        Optional<UserDto> userDto = userService.getUser();
+        return ResponseEntity.ok(new BaseResponse(houseService.getHouseDetail(aptcode, userDto)));
     }
 
     /*
