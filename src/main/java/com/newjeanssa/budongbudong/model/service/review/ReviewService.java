@@ -9,6 +9,7 @@ import com.newjeanssa.budongbudong.model.dto.review.ReviewUserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ public class ReviewService {
     /*
     리뷰 등록
      */
+    @Transactional
     public void registerReview(Optional<UserDto> userDto, ReviewRegisterRequest reviewRegisterRequest) {
         ReviewAptDto reviewDto = ReviewAptDto.builder()
                 .reviewComment(reviewRegisterRequest.getReviewComment())
@@ -31,6 +33,7 @@ public class ReviewService {
                 .build();
         userDto.ifPresent(reviewDto::setUserDto);
         reviewDao.insertReview(reviewDto);
+        reviewDao.updateReviewScore(reviewRegisterRequest.getAptId());
     }
 
     /*
@@ -57,6 +60,7 @@ public class ReviewService {
     /*
     리뷰 수정
      */
+    @Transactional
     public void modifyReview(Optional<UserDto> userDto, ReviewUpdateRequest reviewUpdateRequest) {
         ReviewAptDto reviewDto = ReviewAptDto.builder()
                 .reviewComment(reviewUpdateRequest.getReviewComment())

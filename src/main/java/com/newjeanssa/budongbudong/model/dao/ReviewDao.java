@@ -14,5 +14,6 @@ public interface ReviewDao {
     List<ReviewUserDto> selectReviewsByUserId(Long userId);
     Optional<Long> selectReview(Long reviewId);
     void updateReview(ReviewAptDto reviewDto);
+    void updateReviewScore(String aptId);
     void deleteReview(Long reviewId);
 }

@@ -138,3 +138,48 @@ CREATE TABLE qa (
                         create_time DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         FOREIGN KEY (user_id) REFERENCES user(user_id)
 );
+
+CREATE TABLE category_info (
+                               category_code VARCHAR(3) PRIMARY KEY,
+                               category_id VARCHAR(2),
+                               category_name VARCHAR(255),
+                               sub_category_name VARCHAR(255)
+);
+
+INSERT INTO category_info (category_code, category_id, category_name, sub_category_name)
+VALUES  ('10', 'G0', '종합소매', NULL),
+        ('101', 'G1', '종합소매', '슈퍼'),
+        ('102', 'G2', '종합소매', '편의점'),
+        ('103', 'G3', '종합소매', '기타'),
+        ('20', 'F0', '음식', NULL),
+        ('201', 'F1', '음식', '한식'),
+        ('202', 'F2', '음식', '중식'),
+        ('203', 'F3', '음식', '일식'),
+        ('204', 'F4', '음식', '서양식'),
+        ('205', 'F5', '음식', '동남아'),
+        ('206', 'F6', '음식', '카페'),
+        ('207', 'F7', '음식', '패스트푸드'),
+        ('208', 'F8', '음식', '기타&주점'),
+        ('30', 'P0', '교육', NULL),
+        ('301', 'P1', '교육', '일반교육'),
+        ('302', 'P2', '교육', '기타교육'),
+        ('303', 'P3', '교육', '편의(도서관&독서실)'),
+        ('40', 'Q0', '보건의료', NULL),
+        ('401', 'Q1', '보건의료', '병원'),
+        ('402', 'Q2', '보건의료', '의원'),
+        ('50', 'R0', '편의', NULL),
+        ('501', 'R1', '편의', '세탁'),
+        ('502', 'R2', '편의', '오락');
+
+
+CREATE TABLE store_info (
+                            store_id BIGINT PRIMARY KEY,
+                            store_name VARCHAR(255),
+                            category_code VARCHAR(3),
+                            dong_code VARCHAR(10),
+                            street_address VARCHAR(255),
+                            lng VARCHAR(225),
+                            lat VARCHAR(225),
+                            FOREIGN KEY (category_code) REFERENCES category_info(category_code)
+);
+

@@ -31,8 +31,8 @@ public class AptDto {
     private String schoolDist;
     private String schoolAddress;
     private long aptHit;
-    private long totalScore;;
-    private long interiorScore;
+    private long totalScore;
+    private long reviewScore;
     private long facilitiesScore;
 
     List<AptAreaDto> aptAreaList;
