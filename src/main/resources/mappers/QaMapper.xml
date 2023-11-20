@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.newjeanssa.budongbudong.model.dao.QaDao">
+    <resultMap type="QaDto" id="QaResultMap">
+        <id property="qaId" column="qa_id" />
+        <result property="qaTitle" column="qa_title" />
+        <result property="qaContent" column="qa_content" />
+        <result property="qaComment" column="qa_comment" />
+        <result property="commentStatus" column="comment_status" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
+    <resultMap type="QaDto" id="QaInfoResultMap" extends="QaResultMap">
+        <collection property="userDto" resultMap="com.newjeanssa.budongbudong.model.dao.UserDao.UserResultMap"/>
+    </resultMap>
+
+    <insert id="insertQa" parameterType="QaDto">
+        INSERT INTO qa (user_id, qa_title, qa_content, comment_status)
+        VALUES ( #{userDto.id}, #{qaTitle}, #{qaContent}, false)
+    </insert>
+
+    <select id="selectQas" parameterType="QaListSearchDto" resultMap="QaResultMap">
+        SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.qa_id, t1.qa_title, t1.qa_content, t1.qa_comment, t1.comment_status, t1.create_time
+        FROM qa t1 JOIN user t2 ON t1.user_id = t2.user_id ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="selectQa" parameterType="String" resultMap="QaResultMap">
+        SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.qa_id, t1.qa_title, t1.qa_content, t1.qa_comment, t1.comment_status, t1.create_time
+        FROM qa t1 JOIN user t2 ON t1.user_id = t2.user_id
+        WHERE qa_id = #{qaId}
+    </select>
+
+    <update id="updateQa" parameterType="QaDto">
+        UPDATE qa
+        SET qa_title = #{qaTitle}, qa_content = #{qaContent}
+        WHERE qa_id = #{qaId}
+    </update>
+
+    <delete id="deleteQa">
+        DELETE FROM qa
+        WHERE qa_id = #{qaId}
+    </delete>
+
+    <update id="insertComment" parameterType="CommentDto">
+        UPDATE qa
+        SET qa_comment = #{qaComment}, comment_status = true
+        WHERE qa_id = #{qaId}
+    </update>
+
+    <update id="updateComment" parameterType="CommentDto">
+        UPDATE qa
+        SET qa_comment = #{qaComment}
+        WHERE qa_id = #{qaId}
+    </update>
+
+    <update id="deleteComment">
+        UPDATE qa
+        SET qa_comment = null, comment_status = false
+        WHERE qa_id = #{qaId}
+    </update>
+</mapper>

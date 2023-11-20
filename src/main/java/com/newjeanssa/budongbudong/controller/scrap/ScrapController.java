@@ -1,4 +1,4 @@
-package com.newjeanssa.budongbudong.controller;
+package com.newjeanssa.budongbudong.controller.scrap;
 
 import com.newjeanssa.budongbudong.common.BaseResponse;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
@@ -29,12 +29,12 @@ public class ScrapController {
     /*
     관심매물 등록
      */
-    @PostMapping("/{aptRealTransId}")
+    @PostMapping("")
     @ApiOperation(value = "관심매물 등록", notes = "관심매물 등록")
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> registerScrap(@PathVariable long aptRealTransId) {
+    public ResponseEntity<BaseResponse> registerScrap(@RequestBody long aptRealTransId) {
 
         Optional<UserDto> userDto = userService.getUser();
         scrapService.registerScrap(userDto, aptRealTransId);

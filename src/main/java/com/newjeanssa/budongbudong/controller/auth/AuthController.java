@@ -1,4 +1,4 @@
-package com.newjeanssa.budongbudong.controller;
+package com.newjeanssa.budongbudong.controller.auth;
 
 import com.newjeanssa.budongbudong.common.BaseException;
 import com.newjeanssa.budongbudong.common.BaseResponse;
