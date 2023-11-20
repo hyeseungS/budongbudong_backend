@@ -1,6 +1,5 @@
 package com.newjeanssa.budongbudong.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.newjeanssa.budongbudong.common.BaseResponse;
 import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
 import com.newjeanssa.budongbudong.model.service.auth.UserService;
