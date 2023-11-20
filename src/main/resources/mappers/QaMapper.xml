@@ -22,15 +22,15 @@
         VALUES ( #{userDto.id}, #{qaTitle}, #{qaContent}, false)
     </insert>
 
-    <select id="selectQas" parameterType="QaListSearchDto" resultMap="QaResultMap">
+    <select id="selectQas" parameterType="QaListSearchDto" resultMap="QaInfoResultMap">
         SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.qa_id, t1.qa_title, t1.qa_content, t1.qa_comment, t1.comment_status, t1.create_time
         FROM qa t1 JOIN user t2 ON t1.user_id = t2.user_id ORDER BY t1.create_time DESC
     </select>
 
-    <select id="selectQa" parameterType="String" resultMap="QaResultMap">
+    <select id="selectQa" parameterType="Long" resultMap="QaInfoResultMap">
         SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.qa_id, t1.qa_title, t1.qa_content, t1.qa_comment, t1.comment_status, t1.create_time
         FROM qa t1 JOIN user t2 ON t1.user_id = t2.user_id
-        WHERE qa_id = #{qaId}
+        WHERE t1.qa_id = #{qaId}
     </select>
 
     <update id="updateQa" parameterType="QaDto">
@@ -56,7 +56,7 @@
         WHERE qa_id = #{qaId}
     </update>
 
-    <update id="deleteComment">
+    <update id="deleteComment" parameterType="Long">
         UPDATE qa
         SET qa_comment = null, comment_status = false
         WHERE qa_id = #{qaId}

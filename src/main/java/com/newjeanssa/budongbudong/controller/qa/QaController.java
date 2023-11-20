@@ -78,7 +78,7 @@ public class QaController {
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> getQas(@RequestParam Long qaId) {
+    public ResponseEntity<BaseResponse> getQas(@PathVariable Long qaId) {
 
         Optional<QaDto> qaDto = qaService.getQa(qaId);
         if(qaDto.isEmpty()) {
@@ -114,7 +114,7 @@ public class QaController {
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> removeQa(@RequestParam Long qaId) {
+    public ResponseEntity<BaseResponse> removeQa(@PathVariable Long qaId) {
 
         qaService.removeQa(qaId);
 
