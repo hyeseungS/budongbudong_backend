@@ -97,17 +97,17 @@ public class ReviewController {
     /*
     리뷰 삭제
      */
-    @DeleteMapping("/{reviewId}")
+    @DeleteMapping("/{reviewId}/{aptId}")
     @ApiOperation(value = "리뷰 삭제", notes = "리뷰 삭제")
     @ApiResponses({
             @ApiResponse(responseCode = "400", description = "2009-리뷰 아이디 입력 오류"),
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> removeNotice(@PathVariable Long reviewId) {
+    public ResponseEntity<BaseResponse> removeNotice(@PathVariable Long reviewId, @PathVariable String aptId) {
         if(reviewService.getReview(reviewId).isEmpty()) {
             throw new BaseException(INVALID_INPUT_VALUE);
         }
-        reviewService.removeReview(reviewId);
+        reviewService.removeReview(reviewId, aptId);
 
         return ResponseEntity.ok(new BaseResponse(SUCCESS));
     }
