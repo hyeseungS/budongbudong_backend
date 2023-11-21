@@ -24,7 +24,7 @@ public class BudongbudongApplication {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOriginPatterns("*")
-                        .allowedHeaders("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
                         .exposedHeaders("*")
                         .allowedMethods("*")
                         .allowCredentials(true);

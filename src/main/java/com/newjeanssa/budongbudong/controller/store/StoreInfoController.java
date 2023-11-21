@@ -27,14 +27,14 @@ public class StoreInfoController {
     /*
     상권 전체 조회
      */
-    @GetMapping("/{categoryCode}")
+    @GetMapping("/{dongCode}/{categoryCode}")
     @ApiOperation(value = "상권 전체 조회", notes = "상권 전체 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "400", description = "2009-상권 정보 입력 오류"),
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> getStoreInfos(@PathVariable String categoryCode) {
+    public ResponseEntity<BaseResponse> getStoreInfos(@PathVariable String dongCode, @PathVariable String categoryCode) {
 
-        return ResponseEntity.ok(new BaseResponse(storeInfoService.getStoreInfos(categoryCode)));
+        return ResponseEntity.ok(new BaseResponse(storeInfoService.getStoreInfos(dongCode, categoryCode)));
     }
 }
