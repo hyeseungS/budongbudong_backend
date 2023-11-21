@@ -34,7 +34,7 @@
     <select id="selectByCategoryCode" parameterType="StoreInfoRequestDto" resultMap="StoreCategoryInfoResultMap" >
         SELECT t1.category_code, t1.category_id, t1.category_name, t1.sub_category_name, t2.store_id, t2.store_name, t2.dong_code, t2.street_address, t2.lng, t2.lat
         FROM category_info t1 JOIN store_info t2 ON t1.category_code = t2.category_code
-        WHERE t2.dong_code = #{dongCode} AND t1.category_code LIKE #{categoryCode}
+        WHERE t2.dong_code = #{dongCode} AND t1.category_code LIKE CONCAT("%", #{categoryCode}, "%")
     </select>
 
 </mapper>
