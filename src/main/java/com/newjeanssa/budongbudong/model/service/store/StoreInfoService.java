@@ -1,6 +1,7 @@
 package com.newjeanssa.budongbudong.model.service.store;
 
 import com.newjeanssa.budongbudong.model.dao.StoreInfoDao;
+import com.newjeanssa.budongbudong.model.dto.store.StoreInfoRequestDto;
 import com.newjeanssa.budongbudong.model.dto.store.StoreInfoResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,8 @@ public class StoreInfoService {
     /*
     상권정보 조회
      */
-    public List<StoreInfoResponseDto> getStoreInfos(String categoryCode) {
-        return storeInfoDao.selectByCategoryCode(categoryCode);
+    public List<StoreInfoResponseDto> getStoreInfos(String dongCode, String categoryCode) {
+        StoreInfoRequestDto storeInfoRequestDto = StoreInfoRequestDto.builder().dongCode(dongCode).categoryCode(categoryCode).build();
+        return storeInfoDao.selectByCategoryCode(storeInfoRequestDto);
     }
 }
