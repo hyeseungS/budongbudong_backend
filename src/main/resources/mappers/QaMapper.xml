@@ -46,7 +46,7 @@
 
     <update id="insertComment" parameterType="CommentDto">
         UPDATE qa
-        SET qa_comment = #{qaComment}, comment_status = true
+        SET comment_status = true, qa_comment = #{qaComment}
         WHERE qa_id = #{qaId}
     </update>
 
@@ -58,7 +58,7 @@
 
     <update id="deleteComment" parameterType="Long">
         UPDATE qa
-        SET qa_comment = null, comment_status = false
+        SET comment_status = false, qa_comment = null
         WHERE qa_id = #{qaId}
     </update>
 </mapper>

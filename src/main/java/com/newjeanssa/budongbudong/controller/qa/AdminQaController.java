@@ -64,7 +64,7 @@ public class AdminQaController {
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> removeQa(@RequestParam Long qaId) {
+    public ResponseEntity<BaseResponse> removeQa(@PathVariable Long qaId) {
         if(qaService.getQa(qaId).isEmpty()) {
             throw new BaseException(INVALID_INPUT_VALUE);
         }

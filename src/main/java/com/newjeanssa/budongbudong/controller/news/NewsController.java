@@ -43,10 +43,12 @@ public class NewsController {
                 String title = ele.get(i).select("a").text();
                 String titleHref = ele.get(i).select("a").attr("href");
                 String text = ele.get(i).select("span.lede").text();
+                String img = ele.get(i).select("img").attr("src");
 
                 map.put("title", title);
                 map.put("titleHref", titleHref);
                 map.put("text", text);
+                map.put("img", img);
 
                 newsList.add(map);
             }
