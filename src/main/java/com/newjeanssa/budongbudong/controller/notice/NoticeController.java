@@ -73,15 +73,15 @@ public class NoticeController {
     /*
     공지사항 상세 조회
      */
-    @GetMapping("/{id}")
+    @GetMapping("/{noticeId}")
     @ApiOperation(value = "공지사항 상세 조회", notes = "공지사항 아이디 입력 후 공지사항 조회")
     @ApiResponses({
             @ApiResponse(responseCode = "400", description = "2009-페이지 정보 입력 오류"),
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> getNotices(@RequestParam Long id) {
+    public ResponseEntity<BaseResponse> getNotices(@PathVariable Long noticeId) {
 
-        Optional<NoticeDto> noticeDto = noticeService.getNotice(id);
+        Optional<NoticeDto> noticeDto = noticeService.getNotice(noticeId);
         if(noticeDto.isEmpty()) {
             throw new BaseException(INVALID_INPUT_VALUE);
         }
@@ -111,14 +111,14 @@ public class NoticeController {
     /*
     공지사항 삭제
      */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{noticeId}")
     @ApiOperation(value = "공지사항 삭제", notes = "공지사항 삭제")
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-    public ResponseEntity<BaseResponse> removeNotice(@RequestParam Long id) {
+    public ResponseEntity<BaseResponse> removeNotice(@PathVariable Long noticeId) {
 
-        noticeService.removeNotice(id);
+        noticeService.removeNotice(noticeId);
 
         return ResponseEntity.ok(new BaseResponse(SUCCESS));
     }
