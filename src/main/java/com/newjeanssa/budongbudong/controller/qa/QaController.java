@@ -71,6 +71,19 @@ public class QaController {
     }
 
     /*
+    1:1 문의 전체 조회
+     */
+    @GetMapping("/user")
+    @ApiOperation(value = "회원별 1:1 문의 전체 조회", notes = "로그인된 회원 1:1 문의 조회")
+    @ApiResponses({
+            @ApiResponse(responseCode = "500", description = "서버 예외")
+    })
+    public ResponseEntity<BaseResponse> getQasUser() {
+        Optional<UserDto> userDto = userService.getUser();
+        return ResponseEntity.ok(new BaseResponse(qaService.getQasUser(userDto)));
+    }
+
+    /*
      1:1 문의 상세 조회
      */
     @GetMapping("/{qaId}")

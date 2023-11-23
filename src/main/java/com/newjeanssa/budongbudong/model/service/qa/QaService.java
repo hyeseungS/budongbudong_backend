@@ -37,6 +37,13 @@ public class QaService {
     }
 
     /*
+    회원별 1:1문의 전체 조회
+     */
+    public List<QaUserDto> getQasUser(Optional<UserDto> userDto) {
+        return qaDao.selectQasUser(userDto.get().getId());
+    }
+
+    /*
     1:1문의 상세 조회
      */
     public Optional<QaDto> getQa(Long qaId) {

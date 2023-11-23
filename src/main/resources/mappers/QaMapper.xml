@@ -13,6 +13,15 @@
         <result property="createTime" column="create_time" />
     </resultMap>
 
+    <resultMap type="QaUserDto" id="QaUserResultMap">
+        <id property="qaId" column="qa_id" />
+        <result property="qaTitle" column="qa_title" />
+        <result property="qaContent" column="qa_content" />
+        <result property="qaComment" column="qa_comment" />
+        <result property="commentStatus" column="comment_status" />
+        <result property="createTime" column="create_time" />
+    </resultMap>
+
     <resultMap type="QaDto" id="QaInfoResultMap" extends="QaResultMap">
         <collection property="userDto" resultMap="com.newjeanssa.budongbudong.model.dao.UserDao.UserResultMap"/>
     </resultMap>
@@ -25,6 +34,13 @@
     <select id="selectQas" parameterType="QaListSearchDto" resultMap="QaInfoResultMap">
         SELECT t2.user_id id, t2.email, t2.name, t2.role, t1.qa_id, t1.qa_title, t1.qa_content, t1.qa_comment, t1.comment_status, t1.create_time
         FROM qa t1 JOIN user t2 ON t1.user_id = t2.user_id ORDER BY t1.create_time DESC
+    </select>
+
+    <select id="selectQasUser" parameterType="Long" resultMap="QaUserResultMap">
+        SELECT qa_id, qa_title, qa_content, qa_comment, comment_status, create_time
+        FROM qa
+        WHERE user_id = #{userId}
+        ORDER BY create_time DESC
     </select>
 
     <select id="selectQa" parameterType="Long" resultMap="QaInfoResultMap">

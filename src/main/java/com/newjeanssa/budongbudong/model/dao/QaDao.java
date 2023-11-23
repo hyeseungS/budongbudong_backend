@@ -3,6 +3,7 @@ package com.newjeanssa.budongbudong.model.dao;
 import com.newjeanssa.budongbudong.model.dto.qa.CommentDto;
 import com.newjeanssa.budongbudong.model.dto.qa.QaDto;
 import com.newjeanssa.budongbudong.model.dto.qa.QaListSearchDto;
+import com.newjeanssa.budongbudong.model.dto.qa.QaUserDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Optional;
 public interface QaDao {
     void insertQa(QaDto qaDto);
     List<QaDto> selectQas(QaListSearchDto qaListSearchDto);
+    List<QaUserDto> selectQasUser(Long userId);
     Optional<QaDto> selectQa(Long qaId);
     void updateQa(QaDto qaDto);
     void deleteQa(Long qaId);
