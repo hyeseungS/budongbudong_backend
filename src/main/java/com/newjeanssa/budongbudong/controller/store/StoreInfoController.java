@@ -1,7 +1,9 @@
 package com.newjeanssa.budongbudong.controller.store;
 
+import com.newjeanssa.budongbudong.common.BaseExceptionStatus;
 import com.newjeanssa.budongbudong.common.BaseResponse;
-import com.newjeanssa.budongbudong.model.dto.auth.UserDto;
+import com.newjeanssa.budongbudong.model.dto.house.AptDto;
+import com.newjeanssa.budongbudong.model.service.house.HouseService;
 import com.newjeanssa.budongbudong.model.service.store.StoreInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -15,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/store")
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StoreInfoController {
 
     private final StoreInfoService storeInfoService;
+    private final HouseService houseService;
 
     /*
     상권 전체 조회
@@ -36,5 +41,20 @@ public class StoreInfoController {
     public ResponseEntity<BaseResponse> getStoreInfos(@PathVariable String dongCode, @PathVariable String categoryCode) {
 
         return ResponseEntity.ok(new BaseResponse(storeInfoService.getStoreInfos(dongCode, categoryCode)));
+    }
+
+    /*
+    상권 점수
+     */
+    @GetMapping("/score")
+    @ApiOperation(value = "상권 점수 계산", notes = "상권 전체 계산")
+    @ApiResponses({
+            @ApiResponse(responseCode = "400", description = "2009-상권 정보 입력 오류"),
+            @ApiResponse(responseCode = "500", description = "서버 예외")
+    })
+    public ResponseEntity<BaseResponse> calculateStoreScore() {
+        List<AptDto> aptDtoList = houseService.getHouses();
+        storeInfoService.modifyScore(aptDtoList);
+        return ResponseEntity.ok(new BaseResponse(BaseExceptionStatus.SUCCESS));
     }
 }

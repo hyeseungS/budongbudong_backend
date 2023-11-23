@@ -61,7 +61,7 @@
 
     <update id="updateReviewScore" parameterType="String">
         UPDATE apt t1, (SELECT (AVG(review_score) / 5) * 100 AS score FROM review WHERE apt_id = #{aptId}) t2
-        SET total_score = (facilities_score + t2.score) / 2, review_score = t2.score
+        SET total_score = ((facilities_score + store_score + food_score + medical_score + education_score) / 5 + t2.score) / 2, review_score = t2.score
         WHERE apt_id = #{aptId}
     </update>
 

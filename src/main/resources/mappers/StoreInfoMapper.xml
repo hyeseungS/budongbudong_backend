@@ -37,4 +37,20 @@
         WHERE t2.dong_code = #{dongCode} AND t1.category_code LIKE CONCAT("%", #{categoryCode}, "%")
     </select>
 
+    <select id="getDistanceCount" parameterType="StoreDistanceDto" resultType="StoreSizeDto">
+        SELECT store_id storeId,
+               (6371*acos(cos(radians(#{lat}))*cos(radians(lat))*cos(radians(lng)-radians(#{lng}))
+                              +sin(radians(#{lat}))*sin(radians(lat)))) AS distance
+        FROM store_info
+        WHERE dong_code = #{dongCode} AND category_code LIKE CONCAT("%", #{categoryCode}, "%")
+        HAVING distance >= #{start}/1000 AND #{end}/1000 >= distance
+        ORDER BY distance
+    </select>
+
+    <update id="updateStoreScore" parameterType="ScoreDto">
+        UPDATE apt
+        SET total_score = (#{totalScore} + review_score)/2, facilities_score = #{facilitiesScore}, medical_score = #{medicalScore},
+            store_score = #{storeScore}, food_score = #{foodScore}, education_score = #{educationScore}
+        WHERE apt_id = #{aptId}
+    </update>
 </mapper>

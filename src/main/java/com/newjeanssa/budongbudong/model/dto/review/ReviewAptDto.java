@@ -16,7 +16,7 @@ public class ReviewAptDto {
     private Long reviewId;
     private String aptId;
     private String reviewComment;
-    private int reviewScore;
+    private double reviewScore;
     private LocalDateTime createTime;
     private UserDto userDto;
 }

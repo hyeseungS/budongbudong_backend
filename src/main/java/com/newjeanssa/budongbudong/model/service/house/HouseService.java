@@ -41,6 +41,13 @@ public class HouseService {
     }
 
     /*
+    전체 조회
+     */
+    public List<AptDto> getHouses () {
+        return houseDao.selectHouses();
+    }
+
+    /*
     비교분석 : 매물 id로 조회
      */
     public List<AptDto> getHouseCompareList(List<Integer> dealList) {

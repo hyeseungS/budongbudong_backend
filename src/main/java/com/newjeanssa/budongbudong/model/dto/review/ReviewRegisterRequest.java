@@ -13,6 +13,6 @@ public class ReviewRegisterRequest {
 
     private String aptId;
     private String reviewComment;
-    private int reviewScore;
+    private double reviewScore;
 
 }

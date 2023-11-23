@@ -1,6 +1,5 @@
 package com.newjeanssa.budongbudong.model.dto.review;
 
-import com.newjeanssa.budongbudong.model.dto.house.AptDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +18,6 @@ public class ReviewUserDto {
     private String aptAddress;
     private String aptDong;
     private String reviewComment;
-    private int reviewScore;
+    private double reviewScore;
     private LocalDateTime createTime;
 }

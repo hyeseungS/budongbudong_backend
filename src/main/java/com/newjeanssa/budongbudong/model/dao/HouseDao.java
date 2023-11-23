@@ -7,6 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface HouseDao {
+    List<AptDto> selectHouses();
     List<AptCodeDto> selectHouseList(HouseRequest houseRequest);
     void updateHit(String aptCode);
     AptDto selectHouseDetail(String aptCode);
