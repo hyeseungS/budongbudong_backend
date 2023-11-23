@@ -52,8 +52,12 @@ CREATE TABLE apt (
                      school_address VARCHAR(225),
                      apt_hit BIGINT DEFAULT 0,
                      total_score BIGINT DEFAULT 0,
-                     interior_score BIGINT DEFAULT 0,
+                     review_score BIGINT DEFAULT 0,
                      facilities_score BIGINT DEFAULT 0,
+                     store_score BIGINT DEFAULT 0,
+                     food_score BIGINT DEFAULT 0,
+                     medical_score BIGINT DEFAULT 0,
+                     education_score BIGINT DEFAULT 0,
                      FOREIGN KEY (dong_code) REFERENCES dong_code(dong_code)
 );
 

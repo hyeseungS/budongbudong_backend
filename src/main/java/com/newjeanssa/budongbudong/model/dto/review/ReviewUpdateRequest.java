@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ReviewUpdateRequest {
     private Long reviewId;
     private String reviewComment;
-    private int reviewScore;
+    private double reviewScore;
 
 }

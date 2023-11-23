@@ -30,6 +30,10 @@
         <result property="totalScore" column="total_score" />
         <result property="reviewScore" column="review_score" />
         <result property="facilitiesScore" column="facilities_score" />
+        <result property="medicalScore" column="medical_score" />
+        <result property="educationScore" column="education_score" />
+        <result property="storeScore" column="store_score" />
+        <result property="foodScore" column="food_score" />
     </resultMap>
 
     <resultMap type="AptAreaDto" id="AptAreaResultMap">
@@ -104,6 +108,7 @@
                t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
                t1.heating_system, t1.management_office, t1.apt_address, t1.lat, t1.lng, t1.school_name,
                t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.review_score, t1.facilities_score,
+               t1.education_score, t1.medical_score, t1.food_score, t1.store_score,
                t3.apt_area_id, t3.apt_area, t3.apt_area_img, t3.apt_area_supply_exclusive, t3.total_room,
                t3.apt_area_total_households, t3.front_door_structure, t3.price, t3.apt_area_real_trans,
                t3.administration_cost, t3.holding_tax, t3.upper_limit_sale, t3.lower_limit_sale,
@@ -112,6 +117,11 @@
         FROM apt t1 LEFT OUTER JOIN apt_area t3 ON t1.apt_id = t3.apt_id
                     LEFT OUTER JOIN apt_real_history t4 ON t3.apt_id = t4.apt_id AND t3.apt_area_id = t4.apt_area_id AND t3.apt_area = t4.apt_area
         WHERE t1.apt_id = #{aptCode}
+    </select>
+
+    <select id="selectHouses" resultType="AptDto">
+        SELECT apt_id aptId, dong_code dongCode, lat, lng
+        FROM apt
     </select>
 
     <select id="selectAptRealTrans" parameterType="AptIdsDto" resultType="AptRealTransDto">
@@ -129,6 +139,7 @@
                t1.floor_area_ratio, t1.building_land_ratio, t1.construction_company,
                t1.heating_system, t1.management_office, t1.apt_address, t1.lat, t1.lng, t1.school_name,
                t1.school_dist, t1.school_address, t1.apt_hit, t1.total_score, t1.review_score, t1.facilities_score,
+               t1.education_score, t1.medical_score, t1.food_score, t1.store_score,
                t2.apt_id, t2.apt_real_trans_id, t2.apt_real_trans_name, t2.apt_real_trans_price, t2.apt_real_trans_img,
                t2.apt_real_trans_floor, t2.apt_real_trans_dir, t2.apt_real_trans_area,
                t3.apt_area_id, t3.apt_area, t3.apt_area_img, t3.apt_area_supply_exclusive, t3.total_room,

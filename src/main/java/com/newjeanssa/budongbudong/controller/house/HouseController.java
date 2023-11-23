@@ -64,11 +64,9 @@ public class HouseController {
      */
     @GetMapping("/compare")
     @Operation(summary = "비교분석 조회", description = "매물 id 리스트 입력")
-
     @ApiResponses({
             @ApiResponse(responseCode = "500", description = "서버 예외")
     })
-
     public ResponseEntity<BaseResponse> getHouseCompareList(@Parameter(name = "dealList", in = QUERY, array = @ArraySchema( schema = @Schema(type = "int")))  @RequestParam List<Integer> dealList) {
         return ResponseEntity.ok(new BaseResponse(houseService.getHouseCompareList(dealList)));
     }
